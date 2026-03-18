@@ -1,0 +1,252 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta content="IE=edge" http-equiv="X-UA-Compatible">
+  <meta content="width=device-width,initial-scale=1" name="viewport">
+  <meta content="description" name="description">
+  <meta name="google" content="notranslate" />
+  <meta content="Mashup templates have been developped by Orson.io team" name="author">
+
+  <!-- Disable tap highlight on IE -->
+  <meta name="msapplication-tap-highlight" content="no">
+    <title>关于</title>  
+  <link rel="apple-touch-icon" sizes="180x180" href="./assets/images/apple-icon-180x180.png">
+  <link href="./assets/images/favicon.ico" rel="icon">
+  <link href="./assets/css/main.3f6952e4.css" rel="stylesheet">
+  <style type="text/css">
+  	.navbar-nav li:nth-of-type(5) a {
+  		font-weight: 700;
+  		color: #4a4a4a;
+  	}
+  	.sticky .navbar-nav li:nth-of-type(5) a{
+  		color: #CCCCCC;
+  	}
+  	@media (max-width:768px) {
+  		.navbar-nav li:nth-of-type(5) a {
+  			color: #CCCCCC;
+  		}
+  	}
+    .form-control{
+        display: inline-block;
+        width: 20%;
+        vertical-align: middle;
+    }
+    .btn-default{
+        height: 40px;
+    }
+    .input-group-btn{
+        display: inline-block;
+        width: auto;
+    }
+    .form-dis{
+        width: 70%;
+    }
+    .btn-group .btn-default{
+        margin-right: 20px;
+    }
+    .tip{
+        color: #cc0000;
+        margin: 0;
+        padding: 0;
+        visibility: hidden;
+    }
+    @media screen and (max-width: 500px) {
+        .form-dis{
+            width: 50%;
+        }
+    }
+  </style>
+
+  </head>
+
+<body class="">
+ <!-- Add your content of header -->
+<div id="header"></div>
+<div class="section-container">
+    <div class="container">
+      <div class="row">
+        <div class="col-xs-12">
+          <div class="section-container-spacer text-center">
+            <h1 class="h2">05：工具</h1>
+          </div>
+          
+          <div class="row">
+            <div class="col-md-10 col-md-offset-1">
+              <div class="row">
+                <div class="col-xs-12 col-lg-12 col-md-12">
+                    <h3>Ⅰ 配速计算</h3>
+                    <div class="col-lg-12 col-md-12">
+                        <div class="col-md-6">
+                            <label>运动里程</label>
+                            <div class="dis-inputs">
+                                <input type="number" id="distance" class="form-control form-dis">
+                                <div class="input-group-btn">
+                                    <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">选择 <span class="caret"></span></button>
+                                    <ul class="dropdown-menu dropdown-menu-right">
+                                        <li><a href="javascript:;" data-target="targetInput" data-value="5">5km</a></li>
+                                        <li><a href="javascript:;" data-target="targetInput" data-value="10">10km</a></li>
+                                        <li><a href="javascript:;" data-target="targetInput" data-value="21.0975">半马(21.0975km)</a></li>
+                                        <li><a href="javascript:;" data-target="targetInput" data-value="42.195">全马(42.195km)</a></li>
+                                    </ul>
+                                </div><!-- /btn-group -->
+                                <button class="btn btn-default fa fa-rotate-left" data-target="distance"></button>
+                            </div><!-- /input-group -->
+                        </div>
+                    </div>
+                    <div class="col-md-12">
+                        <div class="col-md-6">
+                            <label>运动时间</label>
+                            <div class="time-inputs">
+                                <input type="number" id="time-h" class="form-control" placeholder="时" min="0">
+                                <span>:</span>
+                                <input type="number" id="time-m" class="form-control" placeholder="分" min="0" max="59">
+                                <span>:</span>
+                                <input type="number" id="time-s" class="form-control" placeholder="秒" min="0" max="59">
+                                <button class="btn btn-default fa fa-rotate-left" data-target="time"></button>
+                            </div>                            
+                        </div>
+                    </div>
+                    <div class="col-md-12">
+                        <div class="col-md-6">
+                            <label>运动配速</label>
+                            <div class="pace-inputs">
+                                <input type="number" id="pace-m" class="form-control" placeholder="分" min="0">
+                                <span>:</span>
+                                <input type="number" id="pace-s" class="form-control" placeholder="秒" min="0" max="59">
+                                <span>/公里</span>
+                                <button class="btn btn-default fa fa-rotate-left" data-target="pace"></button>
+                            </div>                            
+                        </div>
+                    </div>
+                    <div class="col-md-12">
+                        <div class="col-md-4">
+                            <p class="tip">至少输入任意2项数据！</p>
+                        </div>
+                    </div>
+                    <div class="col-md-12">
+                        <div class="col-md-4">
+                            <div class="btn-group">
+                                <button id="calc-btn" class="calc-btn btn btn-default">计算</button>
+                                <button id="reset-all-btn" class="reset-all-btn btn btn-default">重置</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <script>
+                    // 1. 里程下拉与输入框联动
+                    const dropdownItems = document.querySelectorAll('.dropdown-menu li a');
+                    // 2. 获取里程输入框
+                    const distanceInput = document.getElementById('distance');
+
+                    // 绑定下拉菜单点击事件
+                    dropdownItems.forEach(function(item) {
+                        item.addEventListener('click', function() {
+                            // 获取data-value属性中的里程值
+                            const selectedValue = this.getAttribute('data-value');
+                            // 将值填充到输入框
+                            distanceInput.value = selectedValue;
+                        });
+                    });
+                    
+                    document.getElementById('reset-all-btn').addEventListener('click', () => {
+                        distanceInput.value = '';
+                        document.getElementById('time-h').value = '';
+                        document.getElementById('time-m').value = '';
+                        document.getElementById('time-s').value = '';
+                        document.getElementById('pace-m').value = '';
+                        document.getElementById('pace-s').value = '';
+                    });
+                    // 2. 单项重置按钮
+                    document.querySelectorAll('.fa-rotate-left').forEach(btn => {
+                        btn.addEventListener('click', () => {
+                            const target = btn.dataset.target;
+                            if (target === 'distance') {
+                                distanceInput.value = '';
+                            } else if (target === 'time') {
+                                document.getElementById('time-h').value = '';
+                                document.getElementById('time-m').value = '';
+                                document.getElementById('time-s').value = '';
+                            } else if (target === 'pace') {
+                                document.getElementById('pace-m').value = '';
+                                document.getElementById('pace-s').value = '';
+                            }
+                        });
+                    });
+
+                    // 3. 全部重置按钮
+                    document.getElementById('reset-all-btn').addEventListener('click', () => {
+                        distanceInput.value = '';
+                        document.getElementById('time-h').value = '';
+                        document.getElementById('time-m').value = '';
+                        document.getElementById('time-s').value = '';
+                        document.getElementById('pace-m').value = '';
+                        document.getElementById('pace-s').value = '';
+                        document.querySelectorAll('.tip')[0].style.visibility='hidden';
+                    });
+
+                    // 4. 计算逻辑
+                    document.getElementById('calc-btn').addEventListener('click', () => {
+                        // 获取各项数值
+                        const distance = parseFloat(distanceInput.value) || 0;
+                        const timeH = parseInt(document.getElementById('time-h').value) || 0;
+                        const timeM = parseInt(document.getElementById('time-m').value) || 0;
+                        const timeS = parseInt(document.getElementById('time-s').value) || 0;
+                        const totalTimeSec = timeH * 3600 + timeM * 60 + timeS;
+                        const paceM = parseInt(document.getElementById('pace-m').value) || 0;
+                        const paceS = parseInt(document.getElementById('pace-s').value) || 0;
+                        const totalPaceSec = paceM * 60 + paceS;
+
+                        // 统计有值的项数
+                        let validCount = 0;
+                        if (distance > 0) validCount++;
+                        if (totalTimeSec > 0) validCount++;
+                        if (totalPaceSec > 0) validCount++;
+
+                        if (validCount < 2) {
+                            document.querySelectorAll('.tip')[0].style.visibility='visible';
+                            return;
+                        }
+
+                        // 计算第三项
+                        if (distance > 0 && totalTimeSec > 0) {
+                            // 计算配速
+                            const calcPaceSec = totalTimeSec / distance;
+                            const calcPaceM = Math.floor(calcPaceSec / 60);
+                            const calcPaceS = Math.round(calcPaceSec % 60);
+                            document.getElementById('pace-m').value = calcPaceM;
+                            document.getElementById('pace-s').value = calcPaceS;
+                        } else if (distance > 0 && totalPaceSec > 0) {
+                            // 计算时间
+                            const calcTimeSec = distance * totalPaceSec;
+                            const calcTimeH = Math.floor(calcTimeSec / 3600);
+                            const calcTimeM = Math.floor((calcTimeSec % 3600) / 60);
+                            const calcTimeS = Math.round(calcTimeSec % 60);
+                            document.getElementById('time-h').value = calcTimeH;
+                            document.getElementById('time-m').value = calcTimeM;
+                            document.getElementById('time-s').value = calcTimeS;
+                        } else if (totalTimeSec > 0 && totalPaceSec > 0) {
+                            // 计算里程
+                            const calcDistance = totalTimeSec / totalPaceSec;
+                            distanceInput.value = calcDistance.toFixed(3);
+                        }
+                        document.querySelectorAll('.tip')[0].style.visibility='hidden';
+                    });
+                </script>
+                </div>
+              </div>
+            </div>
+          </div>
+       </div>
+      </div>
+    </div>
+</div>
+<div id="footer"></div>
+<script src="./assets/js/jquery-2.2.4.min.js"></script>
+<script type="text/javascript" src="./assets/js/common.js"></script>
+<script type="text/javascript" src="./assets/js/main.70a66962.js"></script>
+</body>
+
+</html>
