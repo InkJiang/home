@@ -81,7 +81,7 @@
                         <div class="col-md-6">
                             <label>运动里程</label>
                             <div class="dis-inputs">
-                                <input type="number" id="distance" class="form-control form-dis">
+                                <input type="number" id="distance" class="form-control form-dis" autocomplete="off">
                                 <div class="input-group-btn">
                                     <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">选择 <span class="caret"></span></button>
                                     <ul class="dropdown-menu dropdown-menu-right">
@@ -99,11 +99,11 @@
                         <div class="col-md-6">
                             <label>运动时间</label>
                             <div class="time-inputs">
-                                <input type="number" id="time-h" class="form-control" placeholder="时" min="0">
+                                <input type="number" id="time-h" class="form-control" placeholder="时" min="0" autocomplete="off">
                                 <span>:</span>
-                                <input type="number" id="time-m" class="form-control" placeholder="分" min="0" max="59">
+                                <input type="number" id="time-m" class="form-control" placeholder="分" min="0" max="59" autocomplete="off">
                                 <span>:</span>
-                                <input type="number" id="time-s" class="form-control" placeholder="秒" min="0" max="59">
+                                <input type="number" id="time-s" class="form-control" placeholder="秒" min="0" max="59" autocomplete="off">
                                 <button class="btn btn-default fa fa-rotate-left" data-target="time"></button>
                             </div>                            
                         </div>
@@ -112,9 +112,9 @@
                         <div class="col-md-6">
                             <label>运动配速</label>
                             <div class="pace-inputs">
-                                <input type="number" id="pace-m" class="form-control" placeholder="分" min="0">
+                                <input type="number" id="pace-m" class="form-control" placeholder="分" min="0" autocomplete="off">
                                 <span>:</span>
-                                <input type="number" id="pace-s" class="form-control" placeholder="秒" min="0" max="59">
+                                <input type="number" id="pace-s" class="form-control" placeholder="秒" min="0" max="59" autocomplete="off">
                                 <span>/公里</span>
                                 <button class="btn btn-default fa fa-rotate-left" data-target="pace"></button>
                             </div>                            
