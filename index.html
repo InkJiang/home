@@ -1,100 +1,211 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>01：首页</title>
+  <link href="./assets/images/favicon.ico" rel="icon">
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          fontFamily: {
+            'sans': ['"Noto Serif SC"', 'Georgia', 'serif'],
+            'serif': ['"Noto Serif SC"', 'Georgia', 'serif'],
+            'mono': ['"JetBrains Mono"', 'monospace'],
+          },
+          colors: {
+            ink: {
+              50:  '#f7f6f3',
+              100: '#eceae3',
+              200: '#d9d4c7',
+              300: '#c1b89f',
+              400: '#a89676',
+              500: '#967e5d',
+              600: '#876e51',
+              700: '#705a44',
+              800: '#5c4a3a',
+              900: '#4c3e32',
+              950: '#28201a',
+            }
+          },
+          animation: {
+            'fade-in': 'fadeIn 1.2s ease-out forwards',
+            'slide-up': 'slideUp 0.8s ease-out forwards',
+          },
+          keyframes: {
+            fadeIn: {
+              '0%': { opacity: '0' },
+              '100%': { opacity: '1' },
+            },
+            slideUp: {
+              '0%': { opacity: '0', transform: 'translateY(30px)' },
+              '100%': { opacity: '1', transform: 'translateY(0)' },
+            }
+          }
+        }
+      }
+    }
+  </script>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@300;400;500;700&family=Noto+Serif+SC:wght@400;600&display=swap" rel="stylesheet">
+  <style>
+    * { box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
 
-	<head>
-		<meta charset="UTF-8">
-		<meta content="IE=edge" http-equiv="X-UA-Compatible">
-		<meta content="width=device-width,initial-scale=1" name="viewport">
-		<meta content="description" name="description">
-		<meta name="google" content="notranslate" />
-		<meta content="Mashup templates have been developped by Orson.io team" name="author">
+    /* 打字机光标 */
+    .typed-cursor {
+      display: inline-block;
+      width: 2px;
+      height: 1.1em;
+      background: rgba(255,255,255,0.85);
+      margin-left: 2px;
+      vertical-align: text-bottom;
+      animation: blink 0.9s step-end infinite;
+    }
+    @keyframes blink {
+      0%, 100% { opacity: 1; }
+      50%       { opacity: 0; }
+    }
+    @font-face {
+      font-family: 'DreamHanSerifCN-W20';
+      src: url('./assets/fonts/DreamHanSerifCN-W20.woff2') format('woff2');
+    }
+    #typed-output {
+      font-family: 'DreamHanSerifCN-W20', 'Courier New', monospace; /* 后备字体 */
+    }
+    /* 视差背景 */
+    .hero-bg {
+      background-image: url('./assets/images/summer.jpg');
+      background-size: cover;
+      background-position: center center;
+      transition: background-position 0.1s linear;
+    }
 
-		<!-- Disable tap highlight on IE -->
-		<meta name="msapplication-tap-highlight" content="no">
+    /* 毛玻璃导航 */
+    .nav-glass {
+      background: transparent;
+      backdrop-filter: blur(6px);
+      -webkit-backdrop-filter: blur(6px);
+      transition: background 0.4s ease, box-shadow 0.4s ease;
+    }
+    .nav-glass.scrolled {
+      background: rgba(28, 22, 17, 0.92);
+      box-shadow: 0 2px 24px rgba(0,0,0,0.18);
+    }
 
-		<link rel="apple-touch-icon" sizes="180x180" href="./assets/apple-icon-180x180.png">
-		<link href="./assets/images/favicon.ico" rel="icon">
+    /* 移动端菜单 */
+    #mobile-menu { transition: max-height 0.35s ease, opacity 0.3s ease; max-height: 0; opacity: 0; overflow: hidden; }
+    #mobile-menu.open { max-height: 400px; opacity: 1; }
+  </style>
+</head>
 
-		<title>Home</title>
+<body class="bg-ink-950 font-sans overflow-x-hidden">
 
-		<link href="./assets/css/main.3f6952e4.css" rel="stylesheet">
-		<style type="text/css">
-			.navbar-inverse {
-				background-color: transparent;
-				backdrop-filter: blur(3px);
-				border-color: transparent
-			}
-			
-			.navbar-inverse .navbar-brand {
-				color: #9d9d9d
-			}
-			
-			.navbar-inverse .navbar-brand:focus,
-			.navbar-inverse .navbar-brand:hover {
-				color: #fff;
-				background-color: transparent
-			}
-			
-			.navbar-inverse .navbar-nav>li>a,
-			.navbar-inverse .navbar-text {
-				color: #e8e8e8;
-			}
-			
-			.navbar-inverse .navbar-nav>.active>a,
-			.navbar-inverse .navbar-nav>.active>a:focus,
-			.navbar-inverse .navbar-nav>.active>a:hover,
-			.navbar-inverse .navbar-nav>li>a:focus,
-			.navbar-inverse .navbar-nav>li>a:hover {
-				color: #ffffff;
-				background-color: transparent
-			}
-			.navbar-inverse .navbar-nav>li:first-child>a{
-				color: #ffffff;
-				font-weight: 700;
-				cursor: default;
-			}
-			.navbar-inverse .navbar-toggle .icon-bar{
-				background-color: #ffffff
-			}
-		</style>
-	</head>
+  <!-- ===== 导航栏 ===== -->
+  <header id="navbar" class="nav-glass fixed top-0 left-0 right-0 z-50">
+    <div class="max-w-6xl mx-auto px-6 h-16 flex items-center justify-between">
+      <!-- 桌面端导航链接：在移动端隐藏，md及以上显示 -->
+      <div class="hidden md:flex items-center gap-6">
+        <a href="./index.html" class="text-white font-bold text-sm tracking-widest opacity-90 hover:opacity-100 transition-opacity">01：首页</a>
+        <a href="./works.html"   class="nav-link text-white/70 hover:text-white text-sm tracking-wider transition-colors duration-200">02：短文</a>
+        <a href="./about.html"   class="nav-link text-white/70 hover:text-white text-sm tracking-wider transition-colors duration-200">03：关于</a>
+        <a href="./contact.html" class="nav-link text-white/70 hover:text-white text-sm tracking-wider transition-colors duration-200">04：联系</a>
+        <a href="./tool.html"    class="nav-link text-white/70 hover:text-white text-sm tracking-wider transition-colors duration-200">05：工具</a>
+      </div>
 
-	<body class="minimal">
+      <!-- Mobile Hamburger (仅在移动端显示) -->
+      <button id="menu-btn" class="md:hidden text-white p-2" aria-label="菜单">
+        <svg id="icon-open"  class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"/></svg>
+        <svg id="icon-close" class="w-6 h-6 hidden" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/></svg>
+      </button>
+    </div>
 
-		<!-- Add your content of header -->
-		<div id="header"></div>
-		<!-- Add your site or app content here -->
-		<div class="hero-full-container background-image-container white-text-container"
-			style="background-image: url('./assets/images/summer.jpg')">
-			<div class="container">
-				<div class="row">
-					<div class="col-xs-12">
-						<div class="hero-full-wrapper">
-							<div class="text-content">
-								<h1>
-									<span id="typed-strings">
-										<span>一转眼，我们的城市又到了夏天...</span>
-									</span>
-									<span id="typed"></span>
-								</h1>
-							</div>
-						</div>
-					</div>
-				</div>
-			</div>
-		</div>
-		<script src="./assets/js/jquery-2.2.4.min.js"></script>
-		<script src="./assets/js/common.js" type="text/javascript" charset="utf-8"></script>
-		<script>
-			document.addEventListener("DOMContentLoaded", function(event) {
-				type();
-				movingBackgroundImage();
-			});
-		</script>
+    <!-- 移动端下拉菜单 -->
+    <div id="mobile-menu" class="md:hidden border-t border-white/10">
+      <nav class="flex flex-col px-6 py-4 gap-4">
+        <a href="./index.html"   class="text-white hover:text-white text-sm tracking-wider py-1 transition-colors">01：首页</a>
+        <a href="./works.html"   class="text-white/70 hover:text-white text-sm tracking-wider py-1 transition-colors">02：短文</a>
+        <a href="./about.html"   class="text-white/70 hover:text-white text-sm tracking-wider py-1 transition-colors">03：关于</a>
+        <a href="./contact.html" class="text-white/70 hover:text-white text-sm tracking-wider py-1 transition-colors">04：联系</a>
+        <a href="./tool.html"    class="text-white/70 hover:text-white text-sm tracking-wider py-1 transition-colors">05：工具</a>
+      </nav>
+    </div>
+  </header>
 
+  <!-- ===== Hero 区域 ===== -->
+  <main id="hero" class="hero-bg relative h-screen w-full flex items-center justify-center">
+    <!-- 渐变遮罩 -->
+    <div class="absolute inset-0 bg-gradient-to-b from-black/40 via-black/25 to-black/55 pointer-events-none"></div>
 
-		<script type="text/javascript" src="./assets/js/main.70a66962.js"></script>
-	</body>
+    <!-- 文字内容 -->
+    <div class="relative z-10 text-left px-6 animate-fade-in w-[1170px]">
+      <!-- 保持包裹框居中，但内部文字左对齐，并转化为行内块级元素 -->
+      <h1 class="text-white/90 font-serif text-3xl sm:text-4xl md:text-5xl lg:text-6xl leading-relaxed tracking-widest drop-shadow-lg text-left inline-block min-h-[1.5em]">
+        <span id="typed-output"></span><span class="typed-cursor"></span>
+      </h1>
+    </div>
+  </main>
+  <script>
+    // ===== 导航栏滚动效果 =====
+    const navbar = document.getElementById('navbar');
+    window.addEventListener('scroll', () => {
+      if (window.scrollY > 60) {
+        navbar.classList.add('scrolled');
+      } else {
+        navbar.classList.remove('scrolled');
+      }
+    });
 
+    // ===== 移动端菜单 =====
+    const menuBtn  = document.getElementById('menu-btn');
+    const mobileMenu = document.getElementById('mobile-menu');
+    const iconOpen   = document.getElementById('icon-open');
+    const iconClose  = document.getElementById('icon-close');
+    menuBtn.addEventListener('click', () => {
+      mobileMenu.classList.toggle('open');
+      iconOpen.classList.toggle('hidden');
+      iconClose.classList.toggle('hidden');
+    });
 
+    // 点击移动菜单内的任一链接后，自动关闭菜单（提升移动端体验）
+    if (mobileMenu) {
+      const mobileLinks = mobileMenu.querySelectorAll('a');
+      mobileLinks.forEach(link => {
+        link.addEventListener('click', () => {
+          mobileMenu.classList.remove('open');
+          iconOpen.classList.remove('hidden');
+          iconClose.classList.add('hidden');
+        });
+      });
+    }
+
+    // ===== 视差背景 =====
+    const hero = document.getElementById('hero');
+    document.addEventListener('mousemove', (e) => {
+      const x = (e.clientX / window.innerWidth  - 0.5) * 10;
+      const y = (e.clientY / window.innerHeight - 0.5) * 10;
+      hero.style.backgroundPosition = `calc(50% + ${x}px) calc(50% + ${y}px)`;
+    });
+
+    // ===== 打字机效果 =====
+    const texts = [
+      '一转眼，我们的城市又到了夏天...',
+    ];
+    let textIdx = 0, charIdx = 0;
+    const output = document.getElementById('typed-output');
+
+    function typeLoop() {
+      const current = texts[textIdx];
+      output.textContent = current.slice(0, ++charIdx);
+      if (charIdx === current.length) {
+        return;
+      }
+      setTimeout(typeLoop, 200);
+    }
+    typeLoop();
+  </script>
+</body>
 </html>

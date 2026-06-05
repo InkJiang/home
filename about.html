@@ -1,75 +1,154 @@
 <!DOCTYPE html>
-<html lang="en">
-
+<html lang="zh-CN">
 <head>
   <meta charset="UTF-8">
-  <meta content="IE=edge" http-equiv="X-UA-Compatible">
-  <meta content="width=device-width,initial-scale=1" name="viewport">
-  <meta content="description" name="description">
-  <meta name="google" content="notranslate" />
-  <meta content="Mashup templates have been developped by Orson.io team" name="author">
-
-  <!-- Disable tap highlight on IE -->
-  <meta name="msapplication-tap-highlight" content="no">
-    <title>关于</title>  
-  <link rel="apple-touch-icon" sizes="180x180" href="./assets/images/apple-icon-180x180.png">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>03：关于</title>
   <link href="./assets/images/favicon.ico" rel="icon">
-  <link href="./assets/css/main.3f6952e4.css" rel="stylesheet">
-  <style type="text/css">
-  	.navbar-nav li:nth-of-type(3) a {
-  		font-weight: 700;
-  		color: #4a4a4a;
-  	}
-  	.sticky .navbar-nav li:nth-of-type(3) a{
-  		color: #CCCCCC;
-  	}
-  	@media (max-width:768px) {
-  		.navbar-nav li:nth-of-type(3) a {
-  			color: #CCCCCC;
-  		}
-  	}
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          fontFamily: {
+            'sans': ['"Noto Serif SC"','Georgia','serif'],
+            'serif': ['"Noto Serif SC"', 'Georgia',   'serif'],
+          },
+          colors: {
+            ink: {
+              50:'#f7f6f3',100:'#eceae3',200:'#d9d4c7',300:'#c1b89f',
+              400:'#a89676',500:'#967e5d',600:'#876e51',700:'#705a44',
+              800:'#5c4a3a',900:'#4c3e32',950:'#28201a',
+            }
+          },
+        }
+      }
+    }
+  </script>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@300;400;500;700&family=Noto+Serif+SC:wght@400;600&display=swap" rel="stylesheet">
+  <style>
+    .nav-glass { background:transparent; backdrop-filter:blur(6px); -webkit-backdrop-filter:blur(6px); transition:background 0.4s,box-shadow 0.4s; }
+    .nav-glass.scrolled { background:rgba(28,22,17,0.92); box-shadow:0 2px 24px rgba(0,0,0,0.18); }
+    #mobile-menu { transition:max-height 0.35s ease,opacity 0.3s; max-height:0; opacity:0; overflow:hidden; }
+    #mobile-menu.open { max-height:400px; opacity:1; }
   </style>
+</head>
 
-  </head>
+<body class="bg-ink-50 font-sans min-h-screen">
 
-<body class="">
- <!-- Add your content of header -->
-<div id="header"></div>
-<div class="section-container">
-    <div class="container">
-      <div class="row">
-        <div class="col-xs-12">
-          <div class="section-container-spacer text-center">
-            <h1 class="h2">03：关于</h1>
-          </div>
-          
-          <div class="row">
-            <div class="col-md-10 col-md-offset-1">
-              <div class="row">
-                <div class="col-xs-12 col-md-6">
-                  <h3>Ⅰ 关于这个网站</h3>
-                  <p>上班无聊，摸鱼时做的。</p>
-                  <h3>Ⅱ 关于我</h3>
-                  <p>人的一生是很短暂的，只有几十年的光阴。<br>很多人直到钻入了骨灰盒，仍然不明白自己为什么活过一生。<br>而通过写作，可以用文字将自己的想法永久地记录下来并流传后代。<br>如果说一个人的人生有意义或价值的话，其意义和价值或许就在这里了。<br>网上抄的不明所以的句子。。。</p>
-                  <h3>Ⅲ 别的什么</h3>
-                  <p>没别的，就这样吧！</p>
-                </div>
-                <div class="col-xs-12 col-md-6">
-                  <img src="./assets/images/about.jpg" class="img-responsive" alt="">
-                </div>
-              </div>
+  <!-- 导航 -->
+  <header id="navbar" class="nav-glass fixed top-0 left-0 right-0 z-50 bg-ink-950/80">
+    <div class="max-w-6xl mx-auto px-6 h-16 flex items-center justify-between">
+      <!-- 桌面端导航链接：在移动端隐藏，md及以上显示 -->
+      <div class="hidden md:flex items-center gap-6">
+        <a href="./index.html" class="nav-link text-white/70 hover:text-white text-sm tracking-wider transition-colors duration-200">01：首页</a>
+        <a href="./works.html"   class="nav-link text-white/70 hover:text-white text-sm tracking-wider transition-colors duration-200">02：短文</a>
+        <a href="./about.html"   class="text-white font-bold text-sm tracking-widest opacity-90 hover:opacity-100 transition-opacity">03：关于</a>
+        <a href="./contact.html" class="nav-link text-white/70 hover:text-white text-sm tracking-wider transition-colors duration-200">04：联系</a>
+        <a href="./tool.html"    class="nav-link text-white/70 hover:text-white text-sm tracking-wider transition-colors duration-200">05：工具</a>
+      </div>
+
+      <!-- Mobile Hamburger (仅在移动端显示) -->
+      <button id="menu-btn" class="md:hidden text-white p-2" aria-label="菜单">
+        <svg id="icon-open"  class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"/></svg>
+        <svg id="icon-close" class="w-6 h-6 hidden" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/></svg>
+      </button>
+    </div>
+
+    <!-- 移动端下拉菜单 -->
+    <div id="mobile-menu" class="md:hidden border-t border-white/10">
+      <nav class="flex flex-col px-6 py-4 gap-4">
+        <a href="./index.html"   class="text-white/70 hover:text-white text-sm tracking-wider py-1 transition-colors">01：首页</a>
+        <a href="./works.html"   class="text-white hover:text-white text-sm tracking-wider py-1 transition-colors">02：短文</a>
+        <a href="./about.html"   class="text-white/70 hover:text-white text-sm tracking-wider py-1 transition-colors">03：关于</a>
+        <a href="./contact.html" class="text-white/70 hover:text-white text-sm tracking-wider py-1 transition-colors">04：联系</a>
+        <a href="./tool.html"    class="text-white/70 hover:text-white text-sm tracking-wider py-1 transition-colors">05：工具</a>
+      </nav>
+    </div>
+  </header>
+
+  <!-- 主内容 -->
+  <main class="pt-28 pb-20">
+    <div class="max-w-5xl mx-auto px-6">
+
+      <!-- 标题 -->
+      <div class="text-center mb-16">
+        <p class="text-ink-400 text-xs tracking-[0.3em] uppercase mb-3">about</p>
+        <h1 class="font-serif text-4xl md:text-5xl text-ink-900 tracking-wide font-bold">03：关于</h1>
+        <div class="mt-5 w-16 h-px bg-ink-300 mx-auto"></div>
+      </div>
+
+      <!-- 内容区 -->
+      <div class="grid md:grid-cols-2 gap-12 lg:gap-20 items-start">
+
+        <!-- 左：文字 -->
+        <div class="space-y-10">
+          <section>
+            <h2 class="font-serif text-xl text-ink-800 mb-4 flex items-center gap-3">
+              <span class="text-ink-400 text-sm font-mono tracking-wider">Ⅰ</span>
+              关于这个网站
+            </h2>
+            <p class="text-ink-600 leading-relaxed text-sm">上班无聊，摸鱼时做的。</p>
+          </section>
+
+          <div class="w-full h-px bg-ink-200"></div>
+
+          <section>
+            <h2 class="font-serif text-xl text-ink-800 mb-4 flex items-center gap-3">
+              <span class="text-ink-400 text-sm font-mono tracking-wider">Ⅱ</span>
+              关于我
+            </h2>
+            <div class="text-ink-600 leading-loose text-sm space-y-3">
+              <p>人的一生是很短暂的，只有几十年的光阴。</p>
+              <p>很多人直到钻入了骨灰盒，仍然不明白自己为什么活过一生。</p>
+              <p>而通过写作，可以用文字将自己的想法永久地记录下来并流传后代。</p>
+              <p>如果说一个人的人生有意义或价值的话，其意义和价值或许就在这里了。</p>
+              <p class="text-ink-400 text-xs italic">网上抄的不明所以的句子……</p>
             </div>
+          </section>
+
+          <div class="w-full h-px bg-ink-200"></div>
+
+          <section>
+            <h2 class="font-serif text-xl text-ink-800 mb-4 flex items-center gap-3">
+              <span class="text-ink-400 text-sm font-mono tracking-wider">Ⅲ</span>
+              别的什么
+            </h2>
+            <p class="text-ink-600 leading-relaxed text-sm">没别的，就这样吧！</p>
+          </section>
+        </div>
+
+        <!-- 右：图片 -->
+        <div class="sticky top-28">
+          <div class="rounded-2xl overflow-hidden shadow-lg">
+            <img src="./assets/images/about.jpg" alt="about" class="w-full h-auto object-cover">
           </div>
-          
-          
-       </div>
+          <div class="mt-4 flex items-center gap-2">
+            <div class="w-2 h-2 rounded-full bg-ink-400"></div>
+            <p class="text-ink-400 text-xs tracking-widest">InkJiang</p>
+          </div>
+        </div>
+
       </div>
     </div>
-</div>
-<div id="footer"></div>
-<script src="./assets/js/jquery-2.2.4.min.js"></script>
-<script type="text/javascript" src="./assets/js/common.js"></script>
-<script type="text/javascript" src="./assets/js/main.70a66962.js"></script>
-</body>
+  </main>
 
+  <!-- 页脚 -->
+  <footer class="bg-ink-950 border-t border-white/10 py-8">
+    <div class="max-w-6xl mx-auto px-6 text-center">
+      <p class="text-white/40 text-xs tracking-widest">© InkJiang &nbsp;·&nbsp; 以文记心，以墨留痕</p>
+    </div>
+  </footer>
+
+  <script>
+    const navbar = document.getElementById('navbar');
+    window.addEventListener('scroll', () => navbar.classList.toggle('scrolled', window.scrollY > 60));
+    document.getElementById('menu-btn').addEventListener('click', () => {
+      document.getElementById('mobile-menu').classList.toggle('open');
+      document.getElementById('icon-open').classList.toggle('hidden');
+      document.getElementById('icon-close').classList.toggle('hidden');
+    });
+  </script>
+</body>
 </html>

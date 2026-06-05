@@ -1,164 +1,328 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>02：短文</title>
+  <link href="./assets/images/favicon.ico" rel="icon">
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          fontFamily: {
+            'sans': ['"Noto Serif SC"','Georgia','serif'],
+            'serif': ['"Noto Serif SC"', 'Georgia',   'serif'],
+          },
+          colors: {
+            ink: {
+              50:'#f7f6f3', 100:'#eceae3', 200:'#d9d4c7', 300:'#c1b89f',
+              400:'#a89676', 500:'#967e5d', 600:'#876e51', 700:'#705a44',
+              800:'#5c4a3a', 900:'#4c3e32', 950:'#28201a',
+            }
+          },
+        }
+      }
+    }
+  </script>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@300;400;500;700&family=Noto+Serif+SC:wght@400;600&display=swap" rel="stylesheet">
+  <style>
+    * { box-sizing: border-box; }
+    .nav-glass { background: transparent; backdrop-filter: blur(6px); -webkit-backdrop-filter: blur(6px); transition: background 0.4s, box-shadow 0.4s; }
+    .nav-glass.scrolled { background: rgba(28,22,17,0.92); box-shadow: 0 2px 24px rgba(0,0,0,0.18); }
+    #mobile-menu { transition: max-height 0.35s ease, opacity 0.3s ease; max-height:0; opacity:0; overflow:hidden; }
+    #mobile-menu.open { max-height:400px; opacity:1; }
 
-	<head>
-		<meta charset="UTF-8">
-		<meta content="IE=edge" http-equiv="X-UA-Compatible">
-		<meta content="width=device-width,initial-scale=1" name="viewport">
-		<meta content="description" name="description">
-		<meta name="google" content="notranslate" />
-		<meta content="Mashup templates have been developped by Orson.io team" name="author">
+    /* 卡片悬停遮罩 */
+    .work-card .overlay { opacity: 0; transition: opacity 0.35s ease; background: rgba(0,0,0,0.45); }
+    .work-card:hover .overlay { opacity: 1; }
+    .work-card img { transition: transform 0.5s ease; }
+    .work-card:hover img { transform: scale(1.04); }
 
-		<!-- Disable tap highlight on IE -->
-		<meta name="msapplication-tap-highlight" content="no">
+    /* 轮播 */
+    .carousel-track { display: flex; transition: transform 0.5s cubic-bezier(0.77,0,0.18,1); }
+    .carousel-slide { min-width: 100%; }
+  </style>
+</head>
 
-		<link rel="apple-touch-icon" sizes="180x180" href="./assets/images/apple-icon-180x180.png">
-		<link href="./assets/images/favicon.ico" rel="icon">
+<body class="bg-ink-50 font-sans min-h-screen">
 
-		<title>短文</title>
+  <!-- ===== 导航栏 ===== -->
+  <header id="navbar" class="nav-glass fixed top-0 left-0 right-0 z-50 bg-ink-950/80">
+    <div class="max-w-6xl mx-auto px-6 h-16 flex items-center justify-between">
+      <!-- 桌面端导航链接：在移动端隐藏，md及以上显示 -->
+      <div class="hidden md:flex items-center gap-6">
+        <a href="./index.html" class="nav-link text-white/70 hover:text-white text-sm tracking-wider transition-colors duration-200">01：首页</a>
+        <a href="./works.html"   class="text-white font-bold text-sm tracking-widest opacity-90 hover:opacity-100 transition-opacity">02：短文</a>
+        <a href="./about.html"   class="nav-link text-white/70 hover:text-white text-sm tracking-wider transition-colors duration-200">03：关于</a>
+        <a href="./contact.html" class="nav-link text-white/70 hover:text-white text-sm tracking-wider transition-colors duration-200">04：联系</a>
+        <a href="./tool.html"    class="nav-link text-white/70 hover:text-white text-sm tracking-wider transition-colors duration-200">05：工具</a>
+      </div>
 
-		<link href="./assets/css/main.3f6952e4.css" rel="stylesheet">
-		<link rel="stylesheet" type="text/css" href="./assets/css/work.css"/>
-		  <style type="text/css">
-		  	.navbar-nav li:nth-of-type(2) a {
-		  		font-weight: 700;
-		  		color: #4a4a4a;
-		  	}
-		  	.sticky .navbar-nav li:nth-of-type(2) a{
-		  		color: #CCCCCC;
-		  	}
-		  	@media (max-width:768px) {
-		  		.navbar-nav li:nth-of-type(2) a {
-		  			color: #CCCCCC;
-		  		}
-				.card-container {
-				    width: 95%;
-				    padding: 2rem 3em;
-				    margin-top: -10em;
-				}
-		  	}
-		  </style>
-	</head>
+      <!-- Mobile Hamburger (仅在移动端显示) -->
+      <button id="menu-btn" class="md:hidden text-white p-2" aria-label="菜单">
+        <svg id="icon-open"  class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"/></svg>
+        <svg id="icon-close" class="w-6 h-6 hidden" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/></svg>
+      </button>
+    </div>
 
-	<body class="">
-		<!-- Add your content of header -->
-		<div id="header"></div>
-		<div class="section-container">
-			<div class="container">
-				<div class="row">
+    <!-- 移动端下拉菜单 -->
+    <div id="mobile-menu" class="md:hidden border-t border-white/10">
+      <nav class="flex flex-col px-6 py-4 gap-4">
+        <a href="./index.html"   class="text-white/70 hover:text-white text-sm tracking-wider py-1 transition-colors">01：首页</a>
+        <a href="./works.html"   class="text-white hover:text-white text-sm tracking-wider py-1 transition-colors">02：短文</a>
+        <a href="./about.html"   class="text-white/70 hover:text-white text-sm tracking-wider py-1 transition-colors">03：关于</a>
+        <a href="./contact.html" class="text-white/70 hover:text-white text-sm tracking-wider py-1 transition-colors">04：联系</a>
+        <a href="./tool.html"    class="text-white/70 hover:text-white text-sm tracking-wider py-1 transition-colors">05：工具</a>
+      </nav>
+    </div>
+  </header>
 
-					<div class="col-sm-8 col-sm-offset-2 section-container-spacer">
-						<div class="text-center">
-							<h1 class="h2">02：短文</h1>
-							<p class="text-left text-justify">公园中有一片银杏林，当我身在其中，看到遍地黄灿灿的银杏叶，骤然醒悟。原来已到秋末，原来十一月已悄然而至。或许此时的家乡树叶已落满屋顶，或许有的早已腐烂，或许家乡的绿色已经随着十一月的到来隐藏在眼前这片金黄之后。随手捡起一片银杏叶，夹在书本中，品悟这难得的十一月，保藏家乡的十一月。
-							</p>
-						</div>
-					</div>
+  <!-- ===== 主内容 ===== -->
+  
 
-					<div class="col-md-12">
+  <main class="pt-32 pb-20">
+    <div class="max-w-3xl mx-auto px-6 text-center mb-14">
+      <p class="text-ink-400 text-xs tracking-[0.3em] uppercase mb-3">writings</p>
+      <h1 class="font-serif text-4xl md:text-5xl text-ink-900 mb-6 tracking-wide font-bold">02：短文</h1>
+      <p class="text-ink-600 leading-loose text-sm md:text-base max-w-xl mx-auto text-left">
+        公园中有一片银杏林，当我身在其中，看到遍地黄灿灿的银杏叶，骤然醒悟。原来已到秋末，原来十一月已悄然而至。随手捡起一片银杏叶，夹在书本中，品悟这难得的十一月。
+      </p>
+      <div id="dots-container" class="flex items-center justify-center gap-3 mt-8"></div>
+    </div>
 
-						<div id="myCarousel" class="carousel slide projects-carousel">
-							<!-- Carousel items -->
-							<div class="carousel-inner">
-								<div class="item active">
-									<div class="row">
-										<div class="col-sm-4">
-											<a href="./work01.html" title="" class="black-image-project-hover">
-												<img src="./assets/images/work01-hover.jpg" alt=""
-													class="img-responsive">
-											</a>
-											<div class="card-container card-container-lg">
-												<h4>001/006</h4>
-												<h3>你好，<br>十一月</h3>
-												<p>今年的十一月有点陌生，陌生的地方，陌生的环境。不是我变了，而是它藏的深了。</p>
-												<a href="./work01.html" title="" class="btn btn-default">进入>></a>
-											</div>
-										</div>
-										<div class="col-sm-4">
-											<a href="./work02.html" title="" class="black-image-project-hover">
-												<img src="./assets/images/work02-hover.jpg" alt=""
-													class="img-responsive">
-											</a>
-											<div class="card-container card-container-lg">
-												<h4>002/006</h4>
-												<h3>醉心于经典诗词<br>悦性怡情</h3>
-												<p>中华民族拥有五千年的悠久历史和灿烂的文化。而传统文化是我们的民族之魂，诗词歌赋，小说戏剧，成为我国文学宝库中的瑰宝。唐宋诗词又是传统文化中情境最优美，语言最精湛且最富艺术感染力的精品。</p>
-												<a href="./work02.html" title="" class="btn btn-default">进入>></a>
-											</div>
-										</div>
-										<div class="col-sm-4">
-											<a href="./work03.html" title="" class="black-image-project-hover">
-												<img src="./assets/images/work003-02.jpg" alt=""
-													class="img-responsive">
-											</a>
-											<div class="card-container card-container-lg">
-												<h4>003/006</h4>
-												<h3>拾一片<br>初冬的落叶</h3>
-												<p>时间犹如白驹过隙，稍纵即逝。没有一点防备，就这样又要度过一个冬天了!感觉秋天就像昙花一现，温度在一夜之间降低了。没有办法，只好准备好厚厚的衣服迎接这个冬天。</p>
-												<a href="./work03.html" title="" class="btn btn-default">进入>></a>
-											</div>
-										</div>
-									</div>
-									<!--/row-->
-								</div>
-								<!--/item-->
-								<div class="item">
-									<div class="row">
-										<div class="col-sm-4">
-											<a href="./work04.html" class="black-image-project-hover">
-												<img src="./assets/images/work004-02.jpg" alt="Image"
-													class="img-responsive">
-											</a>
-											<div class="card-container">
-												<h4>004/006</h4>
-												<h3>雪纷纷扬扬飘飘洒洒地下着</h3>
-												<p>雪纷纷扬扬<br>飘飘洒洒地下着<br>在他的身后</p>
-												<a href="./work04.html" class="btn btn-default">进入>></a>
-											</div>
-										</div>
-										<div class="col-sm-4">
-											<a href="./work05.html" class="black-image-project-hover">
-												<img src="./assets/images/work005-02.jpg" alt="Image"
-													class="img-responsive">
-											</a>
-											<div class="card-container">
-												<h4>005/006</h4>
-												<h3>面朝大海<br>春暖花开</h3>
-												<p>从明天起，做一个幸福的人<br>喂马，劈柴，周游世界<br>从明天起，关心粮食和蔬菜</p>
-												<a href="./work05.html" class="btn btn-default">进入>></a>
-											</div>
-										</div>
-										<div class="col-sm-4">
-											<a href="./work06.html" class="black-image-project-hover">
-												<img src="./assets/images/work006-02.jpg" alt="Image"
-													class="img-responsive">
-											</a>
-											<div class="card-container">
-												<h4>006/006</h4>
-												<h3>秋雨缠缠绵绵，丰润着我那支细细的笔</h3>
-												<p>秋雨缠缠绵绵，丰润着我那支细细的笔。我慢慢写着、画着，小心翼翼。</p>
-												<a href="./work06.html" class="btn btn-default">进入>></a>
-											</div>
-										</div>
-									</div>
-									<!--/row-->
-								</div>
+    <div class="relative max-w-6xl mx-auto px-4 sm:px-6">
+      <div class="w-full overflow-hidden">
+        <div class="carousel-track flex transition-transform duration-500 ease-[cubic-bezier(0.77,0,0.18,1)] gap-6" id="carousel">
 
-								<!--/item-->
-							</div>
-							<!--/carousel-inner-->
-							<a class="left carousel-control" href="#myCarousel" data-slide="prev">‹</a>
-							<a class="right carousel-control" href="#myCarousel" data-slide="next">›</a>
-						</div>
-					</div>
-				</div>
-			</div>
-		</div>
-	<div id="footer"></div>
-	<script src="./assets/js/jquery-2.2.4.min.js"></script>
-	<script src="./assets/js/common.js" type="text/javascript" charset="utf-8"></script>
-	<script type="text/javascript" src="./assets/js/main.70a66962.js"></script>
-	</body>
+          <a href="./work01.html" class="work-card w-full sm:w-[calc((100%-24px)/2)] lg:w-[calc((100%-48px)/3)] shrink-0 group block bg-white rounded-2xl overflow-hidden shadow-sm hover:transition-shadow duration-300">
+            <div class="relative overflow-hidden h-52">
+              <img src="./assets/images/work01-hover.jpg" alt="你好，十一月" class="w-full h-full object-cover">
+              <div class="overlay absolute inset-0 flex items-end p-5">
+                <span class="text-white text-sm font-medium">进入阅读 →</span>
+              </div>
+            </div>
+            <div class="p-6">
+              <p class="text-ink-400 text-xs tracking-widest mb-2">001 / 006</p>
+              <h3 class="font-serif text-xl text-ink-900 mb-3 leading-snug group-hover:text-ink-600 transition-colors">你好，十一月</h3>
+              <p class="text-ink-500 text-sm leading-relaxed line-clamp-3">今年的十一月有点陌生，陌生的地方，陌生的环境。不是我变了，而是它藏的深了。</p>
+            </div>
+          </a>
 
+          <a href="./work02.html" class="work-card w-full sm:w-[calc((100%-24px)/2)] lg:w-[calc((100%-48px)/3)] shrink-0 group block bg-white rounded-2xl overflow-hidden shadow-sm hover:transition-shadow duration-300">
+            <div class="relative overflow-hidden h-52">
+              <img src="./assets/images/work02-hover.jpg" alt="醉心于经典诗词" class="w-full h-full object-cover">
+              <div class="overlay absolute inset-0 flex items-end p-5">
+                <span class="text-white text-sm font-medium">进入阅读 →</span>
+              </div>
+            </div>
+            <div class="p-6">
+              <p class="text-ink-400 text-xs tracking-widest mb-2">002 / 006</p>
+              <h3 class="font-serif text-xl text-ink-900 mb-3 leading-snug group-hover:text-ink-600 transition-colors">醉心于经典诗词<br>悦性怡情</h3>
+              <p class="text-ink-500 text-sm leading-relaxed line-clamp-3">唐宋诗词又是传统文化中情境最优美，语言最精湛且最富艺术感染力的精品。</p>
+            </div>
+          </a>
 
+          <a href="./work03.html" class="work-card w-full sm:w-[calc((100%-24px)/2)] lg:w-[calc((100%-48px)/3)] shrink-0 group block bg-white rounded-2xl overflow-hidden shadow-sm hover:transition-shadow duration-300">
+            <div class="relative overflow-hidden h-52">
+              <img src="./assets/images/work003-02.jpg" alt="拾一片初冬的落叶" class="w-full h-full object-cover">
+              <div class="overlay absolute inset-0 flex items-end p-5">
+                <span class="text-white text-sm font-medium">进入阅读 →</span>
+              </div>
+            </div>
+            <div class="p-6">
+              <p class="text-ink-400 text-xs tracking-widest mb-2">003 / 006</p>
+              <h3 class="font-serif text-xl text-ink-900 mb-3 leading-snug group-hover:text-ink-600 transition-colors">拾一片<br>初冬的落叶</h3>
+              <p class="text-ink-500 text-sm leading-relaxed line-clamp-3">时间犹如白驹过隙，稍纵即逝。没有一点防备，就这样又要度过一个冬天了！</p>
+            </div>
+          </a>
+
+          <a href="./work04.html" class="work-card w-full sm:w-[calc((100%-24px)/2)] lg:w-[calc((100%-48px)/3)] shrink-0 group block bg-white rounded-2xl overflow-hidden shadow-sm hover:transition-shadow duration-300">
+            <div class="relative overflow-hidden h-52">
+              <img src="./assets/images/work004-02.jpg" alt="雪纷纷扬扬" class="w-full h-full object-cover">
+              <div class="overlay absolute inset-0 flex items-end p-5">
+                <span class="text-white text-sm font-medium">进入阅读 →</span>
+              </div>
+            </div>
+            <div class="p-6">
+              <p class="text-ink-400 text-xs tracking-widest mb-2">004 / 006</p>
+              <h3 class="font-serif text-xl text-ink-900 mb-3 leading-snug group-hover:text-ink-600 transition-colors">雪纷纷扬扬<br>飘飘洒洒地下着</h3>
+              <p class="text-ink-500 text-sm leading-relaxed line-clamp-3">雪纷纷扬扬，飘飘洒洒地下着，在他的身后……</p>
+            </div>
+          </a>
+
+          <a href="./work05.html" class="work-card w-full sm:w-[calc((100%-24px)/2)] lg:w-[calc((100%-48px)/3)] shrink-0 group block bg-white rounded-2xl overflow-hidden shadow-sm hover:transition-shadow duration-300">
+            <div class="relative overflow-hidden h-52">
+              <img src="./assets/images/work005-02.jpg" alt="面朝大海春暖花开" class="w-full h-full object-cover">
+              <div class="overlay absolute inset-0 flex items-end p-5">
+                <span class="text-white text-sm font-medium">进入阅读 →</span>
+              </div>
+            </div>
+            <div class="p-6">
+              <p class="text-ink-400 text-xs tracking-widest mb-2">005 / 006</p>
+              <h3 class="font-serif text-xl text-ink-900 mb-3 leading-snug group-hover:text-ink-600 transition-colors">面朝大海<br>春暖花开</h3>
+              <p class="text-ink-500 text-sm leading-relaxed line-clamp-3">从明天起，做一个幸福的人。喂马，劈柴，周游世界。</p>
+            </div>
+          </a>
+
+          <a href="./work06.html" class="work-card w-full sm:w-[calc((100%-24px)/2)] lg:w-[calc((100%-48px)/3)] shrink-0 group block bg-white rounded-2xl overflow-hidden shadow-sm hover:transition-shadow duration-300">
+            <div class="relative overflow-hidden h-52">
+              <img src="./assets/images/work006-02.jpg" alt="秋雨缠缠绵绵" class="w-full h-full object-cover">
+              <div class="overlay absolute inset-0 flex items-end p-5">
+                <span class="text-white text-sm font-medium">进入阅读 →</span>
+              </div>
+            </div>
+            <div class="p-6">
+              <p class="text-ink-400 text-xs tracking-widest mb-2">006 / 006</p>
+              <h3 class="font-serif text-xl text-ink-900 mb-3 leading-snug group-hover:text-ink-600 transition-colors">秋雨缠缠绵绵<br>丰润着我那支细细的笔</h3>
+              <p class="text-ink-500 text-sm leading-relaxed line-clamp-3">秋雨缠缠绵绵，丰润着我那支细细的笔。我慢慢写着、画着，小心翼翼。</p>
+            </div>
+          </a>
+
+        </div>
+      </div>
+
+      <button onclick="prevSlide()" class="absolute left-0 top-1/2 -translate-y-1/2 -translate-x-1 bg-white/90 hover:bg-white shadow-lg rounded-full p-3 transition-all hover:scale-110" aria-label="上一页">
+        <svg class="w-5 h-5 text-ink-700" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"/></svg>
+      </button>
+      <button onclick="nextSlide()" class="absolute right-0 top-1/2 -translate-y-1/2 translate-x-1 bg-white/90 hover:bg-white shadow-lg rounded-full p-3 transition-all hover:scale-110" aria-label="下一页">
+        <svg class="w-5 h-5 text-ink-700" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/></svg>
+      </button>
+    </div>
+  </main>
+
+  <!-- ===== 页脚 ===== -->
+  <footer class="bg-ink-950 border-t border-white/10 py-8">
+    <div class="max-w-6xl mx-auto px-6 text-center">
+      <p class="text-white/40 text-xs tracking-widest">© InkJiang &nbsp;·&nbsp; 以文记心，以墨留痕</p>
+    </div>
+  </footer>
+
+  <script>
+    // 导航
+    const navbar = document.getElementById('navbar');
+    window.addEventListener('scroll', () => {
+      navbar.classList.toggle('scrolled', window.scrollY > 60);
+    });
+    const menuBtn = document.getElementById('menu-btn');
+    const mobileMenu = document.getElementById('mobile-menu');
+    menuBtn.addEventListener('click', () => {
+      mobileMenu.classList.toggle('open');
+      document.getElementById('icon-open').classList.toggle('hidden');
+      document.getElementById('icon-close').classList.toggle('hidden');
+    });
+
+    // ================= 每次翻动 3 个的流式轮播逻辑 =================
+    const carousel = document.getElementById('carousel');
+    const dotsContainer = document.getElementById('dots-container');
+    const cards = carousel.querySelectorAll('.work-card');
+    const totalCards = cards.length;
+
+    let currentIndex = 0; // 当前展示的最左侧卡片的索引
+    let itemsPerPage = 3;  // 每页展示的卡片数量
+    let maxIndex = 0;     // 最大允许的起始索引
+
+    // 1. 根据当前屏幕宽度计算每页卡片数与最大可滑动索引
+    function updateLayoutConfig() {
+      const width = window.innerWidth;
+      if (width >= 1024) {        // lg 大屏
+        itemsPerPage = 3;
+      } else if (width >= 640) {  // sm 中屏
+        itemsPerPage = 2;
+      } else {                    // 移动端
+        itemsPerPage = 1;
+      }
+      
+      // 最大起始索引仍然是总数减去每页可见数（防止右侧留白）
+      maxIndex = Math.max(0, totalCards - itemsPerPage);
+      
+      if (currentIndex > maxIndex) {
+        currentIndex = maxIndex;
+      }
+      
+      renderDots();
+      renderSlide();
+    }
+
+    // 2. 动态生成圆点
+    function renderDots() {
+      dotsContainer.innerHTML = '';
+      const totalPages = Math.ceil(totalCards / itemsPerPage);
+      if (totalPages <= 1) return; 
+      for (let i = 0; i < totalPages; i++) {
+        const dot = document.createElement('button');
+        dot.className = `w-2.5 h-2.5 rounded-full transition-all duration-300 ${isDotActive(i) ? 'bg-ink-800 scale-110' : 'bg-ink-300'}`;
+        dot.setAttribute('aria-label', `转到第 ${i + 1} 页`);
+        dot.onclick = () => goSlide(i * itemsPerPage);
+        dotsContainer.appendChild(dot);
+      }
+    }
+
+    // 辅助函数：判断当前哪个圆点应该高亮
+    function isDotActive(dotIndex) {
+      if (currentIndex === maxIndex && dotIndex === Math.ceil(totalCards / itemsPerPage) - 1) {
+        return true;
+      }
+      return Math.floor(currentIndex / itemsPerPage) === dotIndex;
+    }
+
+    // 3. 执行滑动和圆点高亮切换
+    function renderSlide() {
+      if (totalCards === 0) return;
+      
+      const gap = 24; // Tailwind gap-6 (24px)
+      const containerWidth = carousel.parentElement.clientWidth;
+      const cardWidth = (containerWidth - (itemsPerPage - 1) * gap) / itemsPerPage;
+      const moveDistance = currentIndex * (cardWidth + gap);
+      
+      carousel.style.transform = `translateX(-${moveDistance}px)`;
+      const dots = dotsContainer.querySelectorAll('button');
+      dots.forEach((dot, i) => {
+        if (isDotActive(i)) {
+          dot.classList.remove('bg-ink-300');
+          dot.classList.add('bg-ink-800', 'scale-110');
+        } else {
+          dot.classList.remove('bg-ink-800', 'scale-110');
+          dot.classList.add('bg-ink-300');
+        }
+      });
+    }
+
+    // 4. 控制 API
+    function goSlide(idx) {
+      currentIndex = Math.max(0, Math.min(idx, maxIndex));
+      renderSlide();
+    }
+
+    function nextSlide() {
+      if (currentIndex >= maxIndex) {
+        goSlide(0);
+      } else {
+        goSlide(currentIndex + itemsPerPage);
+      }
+    }
+
+    function prevSlide() {
+      if (currentIndex <= 0) {
+        goSlide(maxIndex);
+      } else {
+        goSlide(currentIndex - itemsPerPage);
+      }
+    }
+
+    // 5. 绑定键盘左右方向键
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'ArrowRight') {
+        nextSlide();
+      } else if (e.key === 'ArrowLeft') {
+        prevSlide();
+      }
+    });
+
+    // 6. 初始化与窗口监听
+    window.addEventListener('resize', updateLayoutConfig);
+    updateLayoutConfig();
+  </script>
+</body>
 </html>

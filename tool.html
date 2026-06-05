@@ -1,252 +1,285 @@
 <!DOCTYPE html>
-<html lang="en">
-
+<html lang="zh-CN">
 <head>
   <meta charset="UTF-8">
-  <meta content="IE=edge" http-equiv="X-UA-Compatible">
-  <meta content="width=device-width,initial-scale=1" name="viewport">
-  <meta content="description" name="description">
-  <meta name="google" content="notranslate" />
-  <meta content="Mashup templates have been developped by Orson.io team" name="author">
-
-  <!-- Disable tap highlight on IE -->
-  <meta name="msapplication-tap-highlight" content="no">
-    <title>工具</title>  
-  <link rel="apple-touch-icon" sizes="180x180" href="./assets/images/apple-icon-180x180.png">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>05：工具</title>
   <link href="./assets/images/favicon.ico" rel="icon">
-  <link href="./assets/css/main.3f6952e4.css" rel="stylesheet">
-  <style type="text/css">
-  	.navbar-nav li:nth-of-type(5) a {
-  		font-weight: 700;
-  		color: #4a4a4a;
-  	}
-  	.sticky .navbar-nav li:nth-of-type(5) a{
-  		color: #CCCCCC;
-  	}
-  	@media (max-width:768px) {
-  		.navbar-nav li:nth-of-type(5) a {
-  			color: #CCCCCC;
-  		}
-  	}
-    .form-control{
-        display: inline-block;
-        width: 20%;
-        vertical-align: middle;
-    }
-    .btn-default{
-        height: 40px;
-    }
-    .input-group-btn{
-        display: inline-block;
-        width: auto;
-    }
-    .form-dis{
-        width: 70%;
-    }
-    .btn-group .btn-default{
-        margin-right: 20px;
-    }
-    .tip{
-        color: #cc0000;
-        margin: 0;
-        padding: 0;
-        visibility: hidden;
-    }
-    @media screen and (max-width: 500px) {
-        .form-dis{
-            width: 50%;
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          fontFamily: {
+            'sans': ['"Noto Serif SC"','Georgia','serif'],
+            'serif': ['"Noto Serif SC"', 'Georgia',   'serif'],
+            'mono':  ['"JetBrains Mono"', 'monospace'],
+          },
+          colors: {
+            ink: {
+              50:'#f7f6f3',100:'#eceae3',200:'#d9d4c7',300:'#c1b89f',
+              400:'#a89676',500:'#967e5d',600:'#876e51',700:'#705a44',
+              800:'#5c4a3a',900:'#4c3e32',950:'#28201a',
+            }
+          },
         }
+      }
     }
+  </script>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@300;400;500;700&family=Noto+Serif+SC:wght@400;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+  <style>
+    .nav-glass { background:transparent; backdrop-filter:blur(6px); transition:background 0.4s,box-shadow 0.4s; }
+    .nav-glass.scrolled { background:rgba(28,22,17,0.92); box-shadow:0 2px 24px rgba(0,0,0,0.18); }
+    #mobile-menu { transition:max-height 0.35s,opacity 0.3s; max-height:0; opacity:0; overflow:hidden; }
+    #mobile-menu.open { max-height:400px; opacity:1; }
+
+    /* 数字输入框 */
+    input[type=number]::-webkit-inner-spin-button,
+    input[type=number]::-webkit-outer-spin-button { -webkit-appearance: none; }
+    input[type=number] { -moz-appearance: textfield; }
+
+    /* 输入框聚焦 */
+    .ink-input:focus { outline: none; border-color: #967e5d; box-shadow: 0 0 0 3px rgba(150,126,93,0.15); }
+
+    /* 下拉 */
+    .dropdown { position:relative; }
+    .dropdown-menu { display:none; position:absolute; top:100%; left:0; z-index:20; min-width:160px; }
+    .dropdown.open .dropdown-menu { display:block; }
   </style>
+</head>
 
-  </head>
+<body class="bg-ink-50 font-sans min-h-screen">
 
-<body class="">
- <!-- Add your content of header -->
-<div id="header"></div>
-<div class="section-container">
-    <div class="container">
-      <div class="row">
-        <div class="col-xs-12">
-          <div class="section-container-spacer text-center">
-            <h1 class="h2">05：工具</h1>
+  <!-- 导航 -->
+  <header id="navbar" class="nav-glass fixed top-0 left-0 right-0 z-50 bg-ink-950/80">
+    <div class="max-w-6xl mx-auto px-6 h-16 flex items-center justify-between">
+      <!-- 桌面端导航链接：在移动端隐藏，md及以上显示 -->
+      <div class="hidden md:flex items-center gap-6">
+        <a href="./index.html" class="nav-link text-white/70 hover:text-white text-sm tracking-wider transition-colors duration-200">01：首页</a>
+        <a href="./works.html"   class="nav-link text-white/70 hover:text-white text-sm tracking-wider transition-colors duration-200">02：短文</a>
+        <a href="./about.html"   class="nav-link text-white/70 hover:text-white text-sm tracking-wider transition-colors duration-200">03：关于</a>
+        <a href="./contact.html" class="nav-link text-white/70 hover:text-white text-sm tracking-wider transition-colors duration-200">04：联系</a>
+        <a href="./tool.html"    class="text-white font-bold text-sm tracking-widest opacity-90 hover:opacity-100 transition-opacity">05：工具</a>
+      </div>
+
+      <!-- Mobile Hamburger (仅在移动端显示) -->
+      <button id="menu-btn" class="md:hidden text-white p-2" aria-label="菜单">
+        <svg id="icon-open"  class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"/></svg>
+        <svg id="icon-close" class="w-6 h-6 hidden" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/></svg>
+      </button>
+    </div>
+
+    <!-- 移动端下拉菜单 -->
+    <div id="mobile-menu" class="md:hidden border-t border-white/10">
+      <nav class="flex flex-col px-6 py-4 gap-4">
+        <a href="./index.html"   class="text-white/70 hover:text-white text-sm tracking-wider py-1 transition-colors">01：首页</a>
+        <a href="./works.html"   class="text-white/70 hover:text-white text-sm tracking-wider py-1 transition-colors">02：短文</a>
+        <a href="./about.html"   class="text-white/70 hover:text-white text-sm tracking-wider py-1 transition-colors">03：关于</a>
+        <a href="./contact.html" class="text-white/70 hover:text-white text-sm tracking-wider py-1 transition-colors">04：联系</a>
+        <a href="./tool.html"    class="text-white hover:text-white text-sm tracking-wider py-1 transition-colors">05：工具</a>
+      </nav>
+    </div>
+  </header>
+
+  <!-- 主内容 -->
+  <main class="pt-28 pb-20">
+    <div class="max-w-2xl mx-auto px-6">
+
+      <!-- 标题 -->
+      <div class="text-center mb-14">
+        <p class="text-ink-400 text-xs tracking-[0.3em] uppercase mb-3">tools</p>
+        <h1 class="font-serif text-4xl md:text-5xl text-ink-900 tracking-wide font-bold">05：工具</h1>
+        <div class="mt-5 w-16 h-px bg-ink-300 mx-auto"></div>
+      </div>
+
+      <!-- 配速计算器卡片 -->
+      <div class="bg-white rounded-3xl shadow-sm border border-ink-100 p-8 sm:p-10">
+
+        <div class="flex items-center gap-3 mb-8">
+          <div class="w-8 h-8 rounded-full bg-ink-100 flex items-center justify-center text-ink-500">
+            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"/></svg>
           </div>
-          
-          <div class="row">
-            <div class="col-md-10 col-md-offset-1">
-              <div class="row">
-                <div class="col-xs-12 col-lg-12 col-md-12">
-                    <h3>Ⅰ 配速计算</h3>
-                    <div class="col-lg-12 col-md-12">
-                        <div class="col-md-6">
-                            <label>运动里程</label>
-                            <div class="dis-inputs">
-                                <input type="number" id="distance" class="form-control form-dis" autocomplete="off">
-                                <div class="input-group-btn">
-                                    <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">选择 <span class="caret"></span></button>
-                                    <ul class="dropdown-menu dropdown-menu-right">
-                                        <li><a href="javascript:;" data-target="targetInput" data-value="5">5km</a></li>
-                                        <li><a href="javascript:;" data-target="targetInput" data-value="10">10km</a></li>
-                                        <li><a href="javascript:;" data-target="targetInput" data-value="21.0975">半马(21.0975km)</a></li>
-                                        <li><a href="javascript:;" data-target="targetInput" data-value="42.195">全马(42.195km)</a></li>
-                                    </ul>
-                                </div><!-- /btn-group -->
-                                <button class="btn btn-default fa fa-rotate-left" data-target="distance"></button>
-                            </div><!-- /input-group -->
-                        </div>
-                    </div>
-                    <div class="col-md-12">
-                        <div class="col-md-6">
-                            <label>运动时间</label>
-                            <div class="time-inputs">
-                                <input type="number" id="time-h" class="form-control" placeholder="时" min="0" autocomplete="off">
-                                <span>:</span>
-                                <input type="number" id="time-m" class="form-control" placeholder="分" min="0" max="59" autocomplete="off">
-                                <span>:</span>
-                                <input type="number" id="time-s" class="form-control" placeholder="秒" min="0" max="59" autocomplete="off">
-                                <button class="btn btn-default fa fa-rotate-left" data-target="time"></button>
-                            </div>                            
-                        </div>
-                    </div>
-                    <div class="col-md-12">
-                        <div class="col-md-6">
-                            <label>运动配速</label>
-                            <div class="pace-inputs">
-                                <input type="number" id="pace-m" class="form-control" placeholder="分" min="0" autocomplete="off">
-                                <span>:</span>
-                                <input type="number" id="pace-s" class="form-control" placeholder="秒" min="0" max="59" autocomplete="off">
-                                <span>/公里</span>
-                                <button class="btn btn-default fa fa-rotate-left" data-target="pace"></button>
-                            </div>                            
-                        </div>
-                    </div>
-                    <div class="col-md-12">
-                        <div class="col-md-4">
-                            <p class="tip">至少输入任意2项数据！</p>
-                        </div>
-                    </div>
-                    <div class="col-md-12">
-                        <div class="col-md-4">
-                            <div class="btn-group">
-                                <button id="calc-btn" class="calc-btn btn btn-default">计算</button>
-                                <button id="reset-all-btn" class="reset-all-btn btn btn-default">重置</button>
-                            </div>
-                        </div>
-                    </div>
-                </div>
+          <div>
+            <h2 class="font-serif text-xl text-ink-900">Ⅰ 配速计算</h2>
+            <p class="text-ink-400 text-xs mt-0.5">输入任意两项，自动计算第三项</p>
+          </div>
+        </div>
 
-                <script>
-                    // 1. 里程下拉与输入框联动
-                    const dropdownItems = document.querySelectorAll('.dropdown-menu li a');
-                    // 2. 获取里程输入框
-                    const distanceInput = document.getElementById('distance');
+        <div class="space-y-6">
 
-                    // 绑定下拉菜单点击事件
-                    dropdownItems.forEach(function(item) {
-                        item.addEventListener('click', function() {
-                            // 获取data-value属性中的里程值
-                            const selectedValue = this.getAttribute('data-value');
-                            // 将值填充到输入框
-                            distanceInput.value = selectedValue;
-                        });
-                    });
-                    
-                    document.getElementById('reset-all-btn').addEventListener('click', () => {
-                        distanceInput.value = '';
-                        document.getElementById('time-h').value = '';
-                        document.getElementById('time-m').value = '';
-                        document.getElementById('time-s').value = '';
-                        document.getElementById('pace-m').value = '';
-                        document.getElementById('pace-s').value = '';
-                    });
-                    // 2. 单项重置按钮
-                    document.querySelectorAll('.fa-rotate-left').forEach(btn => {
-                        btn.addEventListener('click', () => {
-                            const target = btn.dataset.target;
-                            if (target === 'distance') {
-                                distanceInput.value = '';
-                            } else if (target === 'time') {
-                                document.getElementById('time-h').value = '';
-                                document.getElementById('time-m').value = '';
-                                document.getElementById('time-s').value = '';
-                            } else if (target === 'pace') {
-                                document.getElementById('pace-m').value = '';
-                                document.getElementById('pace-s').value = '';
-                            }
-                        });
-                    });
+          <!-- 里程 -->
+          <div class="space-y-2">
+            <label class="block text-ink-700 text-sm font-medium tracking-wide">运动里程</label>
+            <div class="flex gap-2">
+              <input type="number" id="distance" placeholder="公里数"
+                class="ink-input flex-1 bg-ink-50 border border-ink-200 rounded-xl px-4 py-3 text-ink-900 font-mono text-sm transition-all"
+                autocomplete="off" min="0" step="any">
 
-                    // 3. 全部重置按钮
-                    document.getElementById('reset-all-btn').addEventListener('click', () => {
-                        distanceInput.value = '';
-                        document.getElementById('time-h').value = '';
-                        document.getElementById('time-m').value = '';
-                        document.getElementById('time-s').value = '';
-                        document.getElementById('pace-m').value = '';
-                        document.getElementById('pace-s').value = '';
-                        document.querySelectorAll('.tip')[0].style.visibility='hidden';
-                    });
-
-                    // 4. 计算逻辑
-                    document.getElementById('calc-btn').addEventListener('click', () => {
-                        // 获取各项数值
-                        const distance = parseFloat(distanceInput.value) || 0;
-                        const timeH = parseInt(document.getElementById('time-h').value) || 0;
-                        const timeM = parseInt(document.getElementById('time-m').value) || 0;
-                        const timeS = parseInt(document.getElementById('time-s').value) || 0;
-                        const totalTimeSec = timeH * 3600 + timeM * 60 + timeS;
-                        const paceM = parseInt(document.getElementById('pace-m').value) || 0;
-                        const paceS = parseInt(document.getElementById('pace-s').value) || 0;
-                        const totalPaceSec = paceM * 60 + paceS;
-
-                        // 统计有值的项数
-                        let validCount = 0;
-                        if (distance > 0) validCount++;
-                        if (totalTimeSec > 0) validCount++;
-                        if (totalPaceSec > 0) validCount++;
-
-                        if (validCount < 2) {
-                            document.querySelectorAll('.tip')[0].style.visibility='visible';
-                            return;
-                        }
-
-                        // 计算第三项
-                        if (distance > 0 && totalTimeSec > 0) {
-                            // 计算配速
-                            const calcPaceSec = totalTimeSec / distance;
-                            const calcPaceM = Math.floor(calcPaceSec / 60);
-                            const calcPaceS = Math.round(calcPaceSec % 60);
-                            document.getElementById('pace-m').value = calcPaceM;
-                            document.getElementById('pace-s').value = calcPaceS;
-                        } else if (distance > 0 && totalPaceSec > 0) {
-                            // 计算时间
-                            const calcTimeSec = distance * totalPaceSec;
-                            const calcTimeH = Math.floor(calcTimeSec / 3600);
-                            const calcTimeM = Math.floor((calcTimeSec % 3600) / 60);
-                            const calcTimeS = Math.round(calcTimeSec % 60);
-                            document.getElementById('time-h').value = calcTimeH;
-                            document.getElementById('time-m').value = calcTimeM;
-                            document.getElementById('time-s').value = calcTimeS;
-                        } else if (totalTimeSec > 0 && totalPaceSec > 0) {
-                            // 计算里程
-                            const calcDistance = totalTimeSec / totalPaceSec;
-                            distanceInput.value = calcDistance.toFixed(3);
-                        }
-                        document.querySelectorAll('.tip')[0].style.visibility='hidden';
-                    });
-                </script>
+              <!-- 快选下拉 -->
+              <div class="dropdown" id="dist-dropdown">
+                <button type="button" onclick="toggleDropdown('dist-dropdown')"
+                  class="flex items-center gap-1.5 bg-ink-100 hover:bg-ink-200 text-ink-700 text-sm px-4 py-3 rounded-xl transition-colors whitespace-nowrap">
+                  快选
+                  <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/></svg>
+                </button>
+                <div class="dropdown-menu mt-1 bg-white border border-ink-100 rounded-xl shadow-lg overflow-hidden">
+                  <button onclick="setDistance(5)"       class="block w-full text-left px-4 py-2.5 text-sm text-ink-700 hover:bg-ink-50 transition-colors">5 km</button>
+                  <button onclick="setDistance(10)"      class="block w-full text-left px-4 py-2.5 text-sm text-ink-700 hover:bg-ink-50 transition-colors">10 km</button>
+                  <button onclick="setDistance(21.0975)" class="block w-full text-left px-4 py-2.5 text-sm text-ink-700 hover:bg-ink-50 transition-colors">半马 21.0975 km</button>
+                  <button onclick="setDistance(42.195)"  class="block w-full text-left px-4 py-2.5 text-sm text-ink-700 hover:bg-ink-50 transition-colors">全马 42.195 km</button>
                 </div>
               </div>
+
+              <!-- 单项重置 -->
+              <button onclick="resetField('distance')" title="重置里程"
+                class="w-11 h-11 flex items-center justify-center bg-ink-100 hover:bg-red-50 hover:text-red-500 text-ink-500 rounded-xl transition-colors">
+                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15"/></svg>
+              </button>
             </div>
           </div>
-       </div>
-      </div>
-    </div>
-</div>
-<div id="footer"></div>
-<script src="./assets/js/jquery-2.2.4.min.js"></script>
-<script type="text/javascript" src="./assets/js/common.js"></script>
-<script type="text/javascript" src="./assets/js/main.70a66962.js"></script>
-</body>
 
+          <!-- 时间 -->
+          <div class="space-y-2">
+            <label class="block text-ink-700 text-sm font-medium tracking-wide">运动时间</label>
+            <div class="flex items-center gap-2">
+              <input type="number" id="time-h" placeholder="时" min="0"
+                class="ink-input w-0 flex-1 bg-ink-50 border border-ink-200 rounded-xl px-4 py-3 text-ink-900 font-mono text-sm text-center transition-all" autocomplete="off">
+              <span class="text-ink-400 font-light text-lg">:</span>
+              <input type="number" id="time-m" placeholder="分" min="0" max="59"
+                class="ink-input w-0 flex-1 bg-ink-50 border border-ink-200 rounded-xl px-4 py-3 text-ink-900 font-mono text-sm text-center transition-all" autocomplete="off">
+              <span class="text-ink-400 font-light text-lg">:</span>
+              <input type="number" id="time-s" placeholder="秒" min="0" max="59"
+                class="ink-input w-0 flex-1 bg-ink-50 border border-ink-200 rounded-xl px-4 py-3 text-ink-900 font-mono text-sm text-center transition-all" autocomplete="off">
+              <button onclick="resetField('time')" title="重置时间"
+                class="w-11 h-11 flex-shrink-0 flex items-center justify-center bg-ink-100 hover:bg-red-50 hover:text-red-500 text-ink-500 rounded-xl transition-colors">
+                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15"/></svg>
+              </button>
+            </div>
+          </div>
+
+          <!-- 配速 -->
+          <div class="space-y-2">
+            <label class="block text-ink-700 text-sm font-medium tracking-wide">运动配速</label>
+            <div class="flex items-center gap-2">
+              <input type="number" id="pace-m" placeholder="分" min="0"
+                class="ink-input w-0 flex-1 bg-ink-50 border border-ink-200 rounded-xl px-4 py-3 text-ink-900 font-mono text-sm text-center transition-all" autocomplete="off">
+              <span class="text-ink-400 font-light text-lg">:</span>
+              <input type="number" id="pace-s" placeholder="秒" min="0" max="59"
+                class="ink-input w-0 flex-1 bg-ink-50 border border-ink-200 rounded-xl px-4 py-3 text-ink-900 font-mono text-sm text-center transition-all" autocomplete="off">
+              <span class="text-ink-500 text-sm whitespace-nowrap px-2">/公里</span>
+              <button onclick="resetField('pace')" title="重置配速"
+                class="w-11 h-11 flex-shrink-0 flex items-center justify-center bg-ink-100 hover:bg-red-50 hover:text-red-500 text-ink-500 rounded-xl transition-colors">
+                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15"/></svg>
+              </button>
+            </div>
+          </div>
+
+          <!-- 提示 -->
+          <p id="tip-msg" class="invisible text-red-500 text-xs flex items-center gap-1.5">
+            <svg class="w-4 h-4 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4m0 4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>至少输入任意 2 项数据！
+          </p>
+
+          <!-- 按钮组 -->
+          <div class="flex gap-3 pt-2">
+            <button id="calc-btn"
+              class="flex-1 bg-ink-800 hover:bg-ink-900 active:bg-ink-950 text-white text-sm font-medium py-3.5 rounded-xl transition-colors tracking-wide">
+              计 算
+            </button>
+            <button id="reset-all-btn"
+              class="flex-1 bg-ink-100 hover:bg-ink-200 active:bg-ink-300 text-ink-700 text-sm font-medium py-3.5 rounded-xl transition-colors tracking-wide">
+              重 置
+            </button>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </main>
+
+  <script>
+    // 导航
+    const navbar = document.getElementById('navbar');
+    window.addEventListener('scroll', () => navbar.classList.toggle('scrolled', window.scrollY > 60));
+    document.getElementById('menu-btn').addEventListener('click', () => {
+      document.getElementById('mobile-menu').classList.toggle('open');
+      document.getElementById('icon-open').classList.toggle('hidden');
+      document.getElementById('icon-close').classList.toggle('hidden');
+    });
+
+    // 关闭下拉（点击外部）
+    document.addEventListener('click', (e) => {
+      document.querySelectorAll('.dropdown.open').forEach(dd => {
+        if (!dd.contains(e.target)) dd.classList.remove('open');
+      });
+    });
+    function toggleDropdown(id) {
+      const dd = document.getElementById(id);
+      dd.classList.toggle('open');
+    }
+
+    // 里程快选
+    function setDistance(val) {
+      document.getElementById('distance').value = val;
+      document.getElementById('dist-dropdown').classList.remove('open');
+    }
+
+    // 单项重置
+    function resetField(target) {
+      if (target === 'distance') {
+        document.getElementById('distance').value = '';
+      } else if (target === 'time') {
+        ['time-h','time-m','time-s'].forEach(id => document.getElementById(id).value = '');
+      } else if (target === 'pace') {
+        ['pace-m','pace-s'].forEach(id => document.getElementById(id).value = '');
+      }
+    }
+
+    // 全部重置
+    document.getElementById('reset-all-btn').addEventListener('click', () => {
+      ['distance','time-h','time-m','time-s','pace-m','pace-s'].forEach(id => document.getElementById(id).value = '');
+      document.getElementById('tip-msg').classList.remove('visible');
+    });
+
+    // 计算
+    document.getElementById('calc-btn').addEventListener('click', () => {
+      const distance    = parseFloat(document.getElementById('distance').value) || 0;
+      const timeH       = parseInt(document.getElementById('time-h').value) || 0;
+      const timeM       = parseInt(document.getElementById('time-m').value) || 0;
+      const timeS       = parseInt(document.getElementById('time-s').value) || 0;
+      const totalTimeSec = timeH * 3600 + timeM * 60 + timeS;
+      const paceM       = parseInt(document.getElementById('pace-m').value) || 0;
+      const paceS       = parseInt(document.getElementById('pace-s').value) || 0;
+      const totalPaceSec = paceM * 60 + paceS;
+
+      let validCount = 0;
+      if (distance > 0)     validCount++;
+      if (totalTimeSec > 0) validCount++;
+      if (totalPaceSec > 0) validCount++;
+
+      if (validCount < 2) {
+        const tip = document.getElementById('tip-msg');
+        tip.classList.remove('invisible');
+        tip.classList.add('visible'); // 恢复成弹性布局
+        return;
+      }
+      const tip = document.getElementById('tip-msg');
+      tip.classList.remove('visible');
+      tip.classList.add('invisible');
+
+      if (distance > 0 && totalTimeSec > 0) {
+        const s = totalTimeSec / distance;
+        document.getElementById('pace-m').value = Math.floor(s / 60);
+        document.getElementById('pace-s').value = Math.round(s % 60);
+      } else if (distance > 0 && totalPaceSec > 0) {
+        const s = distance * totalPaceSec;
+        document.getElementById('time-h').value = Math.floor(s / 3600);
+        document.getElementById('time-m').value = Math.floor((s % 3600) / 60);
+        document.getElementById('time-s').value = Math.round(s % 60);
+      } else if (totalTimeSec > 0 && totalPaceSec > 0) {
+        document.getElementById('distance').value = (totalTimeSec / totalPaceSec).toFixed(3);
+      }
+    });
+  </script>
+</body>
 </html>

@@ -1,83 +1,112 @@
 <!DOCTYPE html>
-<html lang="en">
-
+<html lang="zh-CN">
 <head>
   <meta charset="UTF-8">
-  <meta content="IE=edge" http-equiv="X-UA-Compatible">
-  <meta content="width=device-width,initial-scale=1" name="viewport">
-  <meta content="description" name="description">
-  <meta name="google" content="notranslate" />
-  <meta content="Mashup templates have been developped by Orson.io team" name="author">
-
-  <!-- Disable tap highlight on IE -->
-  <meta name="msapplication-tap-highlight" content="no">
-  
-  <link rel="apple-touch-icon" sizes="180x180" href="./assets/images/apple-icon-180x180.png">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>02：短文</title>
   <link href="./assets/images/favicon.ico" rel="icon">
-
-  <title>003：拾一片初冬的落叶</title>  
-
-<link href="./assets/css/main.3f6952e4.css" rel="stylesheet">
-<link rel="stylesheet" type="text/css" href="./assets/css/work.css"/>
-
-		  <style type="text/css">
-		  	.navbar-nav li:nth-of-type(2) a {
-		  		font-weight: 700;
-		  		color: #4a4a4a;
-		  	}
-		  	.sticky .navbar-nav li:nth-of-type(2) a{
-		  		color: #CCCCCC;
-		  	}
-		  	@media (max-width:768px) {
-		  		.navbar-nav li:nth-of-type(2) a {
-		  			color: #CCCCCC;
-		  		}
-		  	}
-		  </style>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: { extend: {
+        fontFamily: { 'sans': ['"Noto Serif SC"','Georgia','serif'], 'serif': ['"Noto Serif SC"','Georgia','serif'] },
+        colors: { ink: { 50:'#f7f6f3',100:'#eceae3',200:'#d9d4c7',300:'#c1b89f',400:'#a89676',500:'#967e5d',600:'#876e51',700:'#705a44',800:'#5c4a3a',900:'#4c3e32',950:'#28201a' } },
+      }}
+    }
+  </script>
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@300;400;500;700&family=Noto+Serif+SC:wght@400;600&display=swap" rel="stylesheet">
+  <style>
+    .nav-glass { background:transparent; backdrop-filter:blur(6px); transition:background 0.4s,box-shadow 0.4s; }
+    .nav-glass.scrolled { background:rgba(28,22,17,0.92); box-shadow:0 2px 24px rgba(0,0,0,0.18); }
+    #mobile-menu { transition:max-height 0.35s,opacity 0.3s; max-height:0; opacity:0; overflow:hidden; }
+    #mobile-menu.open { max-height:400px; opacity:1; }
+    .article-body p { margin-bottom:1.5rem; line-height:2; color:#4c3e32; }
+    .article-body p img { max-width:100%; height:auto; border-radius:12px; margin:1.5rem auto; display:block; }
+  </style>
 </head>
-<body class="">
-<div id="header"></div>
-<div class="section-container">
-  <div class="container">
-    <div class="row">
-      <div class="col-xs-12">
-        <img src="./assets/images/work001-01.jpg" class="img-responsive" alt="">
-        <div class="card-container">
-          <div class="">
-			  <h1 class="h2">
-			  	<table>
-			  		<tr>
-			  			<th>003：</th>
-			  			<td>拾一片初冬的落叶</td>
-			  		</tr>
-			  	</table>
-			  </h1>
-          </div>
-          <div class="mainbody">
-			<p>时间犹如白驹过隙，稍纵即逝。没有一点防备，就这样又要度过一个冬天了!感觉秋天就像昙花一现，温度在一夜之间降低了。没有办法，只好准备好厚厚的衣服迎接这个冬天。</p>
-			<p>也许，有的人喜欢冬天，喜欢下雪，喜欢冬天的一切。没错，我就是这样，因为是冬天，所以什么都喜欢。就像是和冬天谈恋爱一样!吹着冬天的冷风感觉整个人都冷静了许多。看着落叶飘在刚落地的雨中，感觉那地上的雨就是树叶哭泣的泪。晚上，走在路上，虽然风很冷，但身边能有一个陪我走的人，即使不是男朋友，也不会感觉风太冷。只觉得和你一起走过第二个冬天，和你一起吹着风，特别好!</p>
-			<p class="col-xs-12"><img src="./assets/images/work003-02.jpg" ></p>
-			<p>有人会说能在大学里谈一场轰轰烈烈的恋爱是多么幸运。但是，我要说虽然我没有恋爱，但我有你，我亲爱的死党，你是我一生的幸运。友谊不是交易，更不需要虚伪。如果你把友谊当成交易，那么全世界都在和你做交易，在这场交易中你不会得到利益，更不会得到胜利，也许，在你眼里你赢了，你没有付出真心，却得到了别人的笑脸。但我要说你输了，而且输得很彻底。不要把别人都当作傻子，当作你欺骗的对象。人都是有感情的，没有人会对另一颗虚假的心无限付出。所以，真心对待每一个人吧!这样你才会赢得漂亮!不是吗?</p>
-			<p class="col-xs-12"><img src="./assets/images/work003-03.jpg" ></p>
-			<p>可能有的人会说：你真心对待别人，可别人未必真心对你。没错，有可能这样，但是别人真心对你的前提一定是你付出真心!不必计较对方是否真的付出，只要你付出就好了。最起码，你无愧于自己和朋友，这就够了。如果你想以交易的态度交朋友，那就请你不要开始了。最终的结果无非就是你我都遍体鳞伤。这样真的好吗?我想这样的结局是谁都不愿接受的，既然在青春这条路上相遇就请彼此好好珍惜吧!</p>
-
-			<p>在初冬的季节，我愿拾一片落叶与你一同感受。不必多言，你就读懂了落叶和我!相视一笑，便得到安慰。这样多好，这种境界应该是朋友中最高的吧!也是我毕生所渴望的。我愿拾一片初冬的落叶，放在手上，停在心里，落在我深处的伤口。慢慢的，当它们融为一体的时候，我会说我有一个叶形的伤疤!而你会说这个伤疤很漂亮。</p>
-          </div>
-        </div>
+<body class="bg-ink-50 font-sans min-h-screen">
+  <header id="navbar" class="nav-glass fixed top-0 left-0 right-0 z-50 bg-ink-950/80">
+    <div class="max-w-6xl mx-auto px-6 h-16 flex items-center justify-between">
+      <!-- 桌面端导航链接：在移动端隐藏，md及以上显示 -->
+      <div class="hidden md:flex items-center gap-6">
+        <a href="./index.html" class="nav-link text-white/70 hover:text-white text-sm tracking-wider transition-colors duration-200">01：首页</a>
+        <a href="./works.html"   class="text-white font-bold text-sm tracking-widest opacity-90 hover:opacity-100 transition-opacity">02：短文</a>
+        <a href="./about.html"   class="nav-link text-white/70 hover:text-white text-sm tracking-wider transition-colors duration-200">03：关于</a>
+        <a href="./contact.html" class="nav-link text-white/70 hover:text-white text-sm tracking-wider transition-colors duration-200">04：联系</a>
+        <a href="./tool.html"    class="nav-link text-white/70 hover:text-white text-sm tracking-wider transition-colors duration-200">05：工具</a>
       </div>
+
+      <!-- Mobile Hamburger (仅在移动端显示) -->
+      <button id="menu-btn" class="md:hidden text-white p-2" aria-label="菜单">
+        <svg id="icon-open"  class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"/></svg>
+        <svg id="icon-close" class="w-6 h-6 hidden" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/></svg>
+      </button>
     </div>
-	<a class="left carousel-control" href="./work02.html" data-slide="prev">‹</a>
 
-	<a class="right carousel-control" href="./work04.html" data-slide="next">›</a>
+    <!-- 移动端下拉菜单 -->
+    <div id="mobile-menu" class="md:hidden border-t border-white/10">
+      <nav class="flex flex-col px-6 py-4 gap-4">
+        <a href="./index.html"   class="text-white/70 hover:text-white text-sm tracking-wider py-1 transition-colors">01：首页</a>
+        <a href="./works.html"   class="text-white hover:text-white text-sm tracking-wider py-1 transition-colors">02：短文</a>
+        <a href="./about.html"   class="text-white/70 hover:text-white text-sm tracking-wider py-1 transition-colors">03：关于</a>
+        <a href="./contact.html" class="text-white/70 hover:text-white text-sm tracking-wider py-1 transition-colors">04：联系</a>
+        <a href="./tool.html"    class="text-white/70 hover:text-white text-sm tracking-wider py-1 transition-colors">05：工具</a>
+      </nav>
+    </div>
+  </header>
+
+  <div class="w-full h-72 sm:h-96 overflow-hidden">
+    <img src="./assets/images/work003-02.jpg" alt="封面" class="w-full h-full object-cover">
   </div>
-</div>
-<div id="footer"></div>
 
-<script src="./assets/js/jquery-2.2.4.min.js"></script>
-<script type="text/javascript" src="./assets/js/common.js"></script>
+  <main class="max-w-3xl mx-auto px-4 sm:px-6 -mt-16 relative z-10 pb-20">
+    <article class="bg-white rounded-3xl shadow-lg p-8 sm:p-12">
+      <header class="mb-10 pb-8 border-b border-ink-100">
+        <div class="flex items-baseline gap-4">
+          <span class="text-ink-400 font-mono text-sm tracking-widest flex-shrink-0">003</span>
+          <h1 class="font-serif text-2xl sm:text-3xl text-ink-900 leading-snug tracking-wide">拾一片初冬的落叶</h1>
+        </div>
+        <div class="mt-3 flex items-center gap-2">
+          <div class="w-1.5 h-1.5 rounded-full bg-ink-300"></div>
+          <p class="text-ink-400 text-xs tracking-widest">散文</p>
+        </div>
+      </header>
+      <div class="article-body text-sm sm:text-base">
+        <p>时间犹如白驹过隙，稍纵即逝。没有一点防备，就这样又要度过一个冬天了！感觉秋天就像昙花一现，温度在一夜之间降低了。没有办法，只好准备好厚厚的衣服迎接这个冬天。</p>
+        <p>也许，有的人喜欢冬天，喜欢下雪，喜欢冬天的一切。没错，我就是这样，因为是冬天，所以什么都喜欢。就像是和冬天谈恋爱一样！吹着冬天的冷风感觉整个人都冷静了许多。看着落叶飘在刚落地的雨中，感觉那地上的雨就是树叶哭泣的泪。晚上，走在路上，虽然风很冷，但身边能有一个陪我走的人，即使不是男朋友，也不会感觉风太冷。只觉得和你一起走过第二个冬天，和你一起吹着风，特别好！</p>
+        <p><img src="./assets/images/work003-02.jpg" alt="初冬"></p>
+        <p>有人会说能在大学里谈一场轰轰烈烈的恋爱是多么幸运。但是，我要说虽然我没有恋爱，但我有你，我亲爱的死党，你是我一生的幸运。友谊不是交易，更不需要虚伪。如果你把友谊当成交易，那么全世界都在和你做交易，在这场交易中你不会得到利益，更不会得到胜利，也许，在你眼里你赢了，你没有付出真心，却得到了别人的笑脸。但我要说你输了，而且输得很彻底。不要把别人都当作傻子，当作你欺骗的对象。人都是有感情的，没有人会对另一颗虚假的心无限付出。所以，真心对待每一个人吧！这样你才会赢得漂亮！不是吗？</p>
+        <p><img src="./assets/images/work003-03.jpg" alt="落叶"></p>
+        <p>可能有的人会说：你真心对待别人，可别人未必真心对你。没错，有可能这样，但是别人真心对你的前提一定是你付出真心！不必计较对方是否真的付出，只要你付出就好了。最起码，你无愧于自己和朋友，这就够了。如果你想以交易的态度交朋友，那就请你不要开始了。最终的结果无非就是你我都遍体鳞伤。这样真的好吗？我想这样的结局是谁都不愿接受的，既然在青春这条路上相遇就请彼此好好珍惜吧！</p>
+        <p>在初冬的季节，我愿拾一片落叶与你一同感受。不必多言，你就读懂了落叶和我！相视一笑，便得到安慰。这样多好，这种境界应该是朋友中最高的吧！也是我毕生所渴望的。我愿拾一片初冬的落叶，放在手上，停在心里，落在我深处的伤口。慢慢的，当它们融为一体的时候，我会说我有一个叶形的伤疤！而你会说这个伤疤很漂亮。</p>
+      </div>
+    </article>
+    <nav class="mt-10 flex items-center justify-between">
+      <a href="./work02.html" class="group flex items-center gap-2 text-ink-500 hover:text-ink-800 transition-colors">
+        <svg class="w-5 h-5 group-hover:-translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M15 19l-7-7 7-7"/></svg>
+        <span class="text-sm">上一篇</span>
+      </a>
+      <span class="text-ink-300 text-xs tracking-widest">003 / 006</span>
+      <a href="./work04.html" class="group flex items-center gap-2 text-ink-500 hover:text-ink-800 transition-colors">
+        <span class="text-sm">下一篇</span>
+        <svg class="w-5 h-5 group-hover:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M9 5l7 7-7 7"/></svg>
+      </a>
+    </nav>
+  </main>
 
-
-
-<script type="text/javascript" src="./assets/js/main.70a66962.js"></script></body>
-
+  <footer class="bg-ink-950 border-t border-white/10 py-8">
+    <div class="max-w-6xl mx-auto px-6 text-center">
+      <p class="text-white/40 text-xs tracking-widest">© InkJiang &nbsp;·&nbsp; 以文记心，以墨留痕</p>
+    </div>
+  </footer>
+  <script>
+    const navbar = document.getElementById('navbar');
+    window.addEventListener('scroll', () => navbar.classList.toggle('scrolled', window.scrollY > 60));
+    document.getElementById('menu-btn').addEventListener('click', () => {
+      document.getElementById('mobile-menu').classList.toggle('open');
+      document.getElementById('icon-open').classList.toggle('hidden');
+      document.getElementById('icon-close').classList.toggle('hidden');
+    });
+  </script>
+</body>
 </html>

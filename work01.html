@@ -1,84 +1,142 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>02：短文</title>
+  <link href="./assets/images/favicon.ico" rel="icon">
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          fontFamily: {
+            'sans': ['"Noto Serif SC"','Georgia','serif'],
+            'serif': ['"Noto Serif SC"', 'Georgia',   'serif'],
+          },
+          colors: {
+            ink: {
+              50:'#f7f6f3',100:'#eceae3',200:'#d9d4c7',300:'#c1b89f',
+              400:'#a89676',500:'#967e5d',600:'#876e51',700:'#705a44',
+              800:'#5c4a3a',900:'#4c3e32',950:'#28201a',
+            }
+          },
+        }
+      }
+    }
+  </script>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@300;400;500;700&family=Noto+Serif+SC:wght@400;600&display=swap" rel="stylesheet">
+  <style>
+    .nav-glass { background:transparent; backdrop-filter:blur(6px); transition:background 0.4s,box-shadow 0.4s; }
+    .nav-glass.scrolled { background:rgba(28,22,17,0.92); box-shadow:0 2px 24px rgba(0,0,0,0.18); }
+    #mobile-menu { transition:max-height 0.35s,opacity 0.3s; max-height:0; opacity:0; overflow:hidden; }
+    #mobile-menu.open { max-height:400px; opacity:1; }
 
-	<head>
-		<meta charset="UTF-8">
-		<meta content="IE=edge" http-equiv="X-UA-Compatible">
-		<meta content="width=device-width,initial-scale=1" name="viewport">
-		<meta content="description" name="description">
-		<meta name="google" content="notranslate" />
-		<meta content="Mashup templates have been developped by Orson.io team" name="author">
+    /* 文章正文排版 */
+    .article-body p { margin-bottom: 1.5rem; line-height: 2; color: #4c3e32; }
+    .article-body p img { max-width: 100%; height: auto; border-radius: 12px; margin: 1.5rem auto; display: block; }
+  </style>
+</head>
 
-		<!-- Disable tap highlight on IE -->
-		<meta name="msapplication-tap-highlight" content="no">
+<body class="bg-ink-50 font-sans min-h-screen">
 
-		<link rel="apple-touch-icon" sizes="180x180" href="./assets/images/apple-icon-180x180.png">
-		<link href="./assets/images/favicon.ico" rel="icon">
-		<title>001：你好，十一月</title>
-		<link href="./assets/css/main.3f6952e4.css" rel="stylesheet">
-		<link rel="stylesheet" type="text/css" href="./assets/css/work.css" />
-		  <style type="text/css">
-		  	.navbar-nav li:nth-of-type(2) a {
-		  		font-weight: 700;
-		  		color: #4a4a4a;
-		  	}
-		  	.sticky .navbar-nav li:nth-of-type(2) a{
-		  		color: #CCCCCC;
-		  	}
-		  	@media (max-width:768px) {
-		  		.navbar-nav li:nth-of-type(2) a {
-		  			color: #CCCCCC;
-		  		}
-		  	}
-		  </style>
-	</head>
-	
-	<body class="">
+  <!-- 导航 -->
+  <header id="navbar" class="nav-glass fixed top-0 left-0 right-0 z-50 bg-ink-950/80">
+    <div class="max-w-6xl mx-auto px-6 h-16 flex items-center justify-between">
+      <!-- 桌面端导航链接：在移动端隐藏，md及以上显示 -->
+      <div class="hidden md:flex items-center gap-6">
+        <a href="./index.html" class="nav-link text-white/70 hover:text-white text-sm tracking-wider transition-colors duration-200">01：首页</a>
+        <a href="./works.html"   class="text-white font-bold text-sm tracking-widest opacity-90 hover:opacity-100 transition-opacity">02：短文</a>
+        <a href="./about.html"   class="nav-link text-white/70 hover:text-white text-sm tracking-wider transition-colors duration-200">03：关于</a>
+        <a href="./contact.html" class="nav-link text-white/70 hover:text-white text-sm tracking-wider transition-colors duration-200">04：联系</a>
+        <a href="./tool.html"    class="nav-link text-white/70 hover:text-white text-sm tracking-wider transition-colors duration-200">05：工具</a>
+      </div>
 
-		<!-- Add your content of header -->
+      <!-- Mobile Hamburger (仅在移动端显示) -->
+      <button id="menu-btn" class="md:hidden text-white p-2" aria-label="菜单">
+        <svg id="icon-open"  class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"/></svg>
+        <svg id="icon-close" class="w-6 h-6 hidden" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/></svg>
+      </button>
+    </div>
 
-		<div id="header"></div>
-		<div class="section-container">
-			<div class="container">
-				<div class="row">
-					<div class="col-xs-12">
-						<img src="./assets/images/work001-01.jpg" class="img-responsive" alt="">
-						<div class="card-container">
-							<div class="text-center">
-								<h1 class="h2">
-									<table>
-										<tr>
-											<th>001：</th>
-											<td>你好，十一月</td>
-										</tr>
-									</table>
-								</h1>
-							</div>
-							<div class="mainbody">
-								<p>今年的十一月有点陌生，陌生的地方，陌生的环境。不是我变了，而是它藏的深了。</p>
-								<p>走在南医的校园中，入眼皆绿，丝毫没有秋末的悲凉与凄苦。十一月的南医仿佛有盛夏的生机，昏黄不在，翠绿满园。声旁是匆忙走过的身影，为了学业，为了梦想，为了责任，或许也为了爱情。可又有多少人能静静感受这到来的十一月啊！古人悲秋，可如果让他们处在这样的环境，这样的十一月中，他们可否能找到他们所悲的秋？
-								</p>
-								<p class="col-xs-12"><img src="./assets/images/work01-hover.jpg"></p>
-								<p>金黄曳满眼，片片家乡念。</p>
-								<p>我是幸运的，月初，我在公园游玩，偶然发现一片隐匿之地。十一月，原来你藏在这儿啊！</p>
-								<p>公园中有一片银杏林，当我身在其中，看到遍地黄灿灿的银杏叶，骤然醒悟。原来已到秋末，原来十一月已悄然而至。或许此时的家乡树叶已落满屋顶，或许有的早已腐烂，或许家乡的绿色已经随着十一月的到来隐藏在眼前这片金黄之后。随手捡起一片银杏叶，夹在书本中，品悟这难得的十一月，保藏家乡的十一月。
-								</p>
-								<p>沐浴晨曦时，转眼黄昏至。</p>
-								<p>一天一天，悄然而逝。你来的淡，来的轻，不知何时已溜到了我的身边，不是你迟到了，而是我忘记了。</p>
-								<p>迟到的问候，你好，十一月！你好，家乡！</p>
-							</div>
-						</div>
-					</div>
-				</div>
-				<a class="left carousel-control" href="./works.html" data-slide="prev">‹</a>
+    <!-- 移动端下拉菜单 -->
+    <div id="mobile-menu" class="md:hidden border-t border-white/10">
+      <nav class="flex flex-col px-6 py-4 gap-4">
+        <a href="./index.html"   class="text-white/70 hover:text-white text-sm tracking-wider py-1 transition-colors">01：首页</a>
+        <a href="./works.html"   class="text-white hover:text-white text-sm tracking-wider py-1 transition-colors">02：短文</a>
+        <a href="./about.html"   class="text-white/70 hover:text-white text-sm tracking-wider py-1 transition-colors">03：关于</a>
+        <a href="./contact.html" class="text-white/70 hover:text-white text-sm tracking-wider py-1 transition-colors">04：联系</a>
+        <a href="./tool.html"    class="text-white/70 hover:text-white text-sm tracking-wider py-1 transition-colors">05：工具</a>
+      </nav>
+    </div>
+  </header>
 
-				<a class="right carousel-control" href="./work02.html" data-slide="next">›</a>
-			</div>
-		</div>
-<div id="footer"></div>
-<script src="./assets/js/jquery-2.2.4.min.js"></script>
-<script src="assets/js/common.js" type="text/javascript" charset="utf-8"></script>
-<script type="text/javascript" src="./assets/js/main.70a66962.js"></script>
-	</body>
+  <!-- 顶部封面图 -->
+  <div class="w-full h-72 sm:h-96 overflow-hidden mt-0">
+    <img src="./assets/images/works-header.jpg" alt="封面" class="w-full h-full object-cover">
+  </div>
 
+  <!-- 文章卡片（叠在图片上方） -->
+  <main class="max-w-3xl mx-auto px-4 sm:px-6 -mt-16 relative z-10 pb-20">
+    <article class="bg-white rounded-3xl shadow-lg p-8 sm:p-12">
+
+      <!-- 文章标题 -->
+      <header class="mb-10 pb-8 border-b border-ink-100">
+        <div class="flex items-baseline gap-4">
+          <span class="text-ink-400 font-mono text-sm tracking-widest flex-shrink-0">001</span>
+          <h1 class="font-serif text-2xl sm:text-3xl text-ink-900 leading-snug tracking-wide">你好，十一月</h1>
+        </div>
+        <div class="mt-3 flex items-center gap-2">
+          <div class="w-1.5 h-1.5 rounded-full bg-ink-300"></div>
+          <p class="text-ink-400 text-xs tracking-widest">散文</p>
+        </div>
+      </header>
+
+      <!-- 正文 -->
+      <div class="article-body text-sm sm:text-base">
+        <p>今年的十一月有点陌生，陌生的地方，陌生的环境。不是我变了，而是它藏的深了。</p>
+        <p>走在南医的校园中，入眼皆绿，丝毫没有秋末的悲凉与凄苦。十一月的南医仿佛有盛夏的生机，昏黄不在，翠绿满园。声旁是匆忙走过的身影，为了学业，为了梦想，为了责任，或许也为了爱情。可又有多少人能静静感受这到来的十一月啊！古人悲秋，可如果让他们处在这样的环境，这样的十一月中，他们可否能找到他们所悲的秋？</p>
+        <p><img src="./assets/images/work01-hover.jpg" alt="银杏林"></p>
+        <p>金黄曳满眼，片片家乡念。</p>
+        <p>我是幸运的，月初，我在公园游玩，偶然发现一片隐匿之地。十一月，原来你藏在这儿啊！</p>
+        <p>公园中有一片银杏林，当我身在其中，看到遍地黄灿灿的银杏叶，骤然醒悟。原来已到秋末，原来十一月已悄然而至。或许此时的家乡树叶已落满屋顶，或许有的早已腐烂，或许家乡的绿色已经随着十一月的到来隐藏在眼前这片金黄之后。随手捡起一片银杏叶，夹在书本中，品悟这难得的十一月，保藏家乡的十一月。</p>
+        <p>沐浴晨曦时，转眼黄昏至。</p>
+        <p>一天一天，悄然而逝。你来的淡，来的轻，不知何时已溜到了我的身边，不是你迟到了，而是我忘记了。</p>
+        <p>迟到的问候，你好，十一月！你好，家乡！</p>
+      </div>
+
+    </article>
+
+    <!-- 翻页导航 -->
+    <nav class="mt-10 flex items-center justify-between">
+      <a href="./works.html" class="group flex items-center gap-2 text-ink-500 hover:text-ink-800 transition-colors">
+        <svg class="w-5 h-5 group-hover:-translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M15 19l-7-7 7-7"/></svg>
+        <span class="text-sm">返回列表</span>
+      </a>
+      <span class="text-ink-300 text-xs tracking-widest">001 / 006</span>
+      <a href="./work02.html" class="group flex items-center gap-2 text-ink-500 hover:text-ink-800 transition-colors">
+        <span class="text-sm">下一篇</span>
+        <svg class="w-5 h-5 group-hover:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M9 5l7 7-7 7"/></svg>
+      </a>
+    </nav>
+  </main>
+
+  <!-- 页脚 -->
+  <footer class="bg-ink-950 border-t border-white/10 py-8">
+    <div class="max-w-6xl mx-auto px-6 text-center">
+      <p class="text-white/40 text-xs tracking-widest">© InkJiang &nbsp;·&nbsp; 以文记心，以墨留痕</p>
+    </div>
+  </footer>
+
+  <script>
+    const navbar = document.getElementById('navbar');
+    window.addEventListener('scroll', () => navbar.classList.toggle('scrolled', window.scrollY > 60));
+    document.getElementById('menu-btn').addEventListener('click', () => {
+      document.getElementById('mobile-menu').classList.toggle('open');
+      document.getElementById('icon-open').classList.toggle('hidden');
+      document.getElementById('icon-close').classList.toggle('hidden');
+    });
+  </script>
+</body>
 </html>
