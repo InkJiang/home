@@ -121,7 +121,7 @@
               </span>
               <div>
                 <p class="text-ink-400 text-xs tracking-widest mb-0.5">地址</p>
-                <p class="text-ink-700 text-sm">地球某处</p>
+                <p class="text-ink-700 text-sm">Shanghai</p>
               </div>
             </li>
           </ul>
@@ -157,12 +157,59 @@
 
   <script>
     const navbar = document.getElementById('navbar');
-    window.addEventListener('scroll', () => navbar.classList.toggle('scrolled', window.scrollY > 60));
-    document.getElementById('menu-btn').addEventListener('click', () => {
-      document.getElementById('mobile-menu').classList.toggle('open');
-      document.getElementById('icon-open').classList.toggle('hidden');
-      document.getElementById('icon-close').classList.toggle('hidden');
+    window.addEventListener('scroll', () => {
+      navbar.classList.toggle('scrolled', window.scrollY > 60);
     });
+
+    const menuBtn = document.getElementById('menu-btn');
+    const mobileMenu = document.getElementById('mobile-menu');
+    const iconOpen = document.getElementById('icon-open');
+    const iconClose = document.getElementById('icon-close');
+
+    function closeMenu() {
+      mobileMenu.classList.remove('open');
+      iconOpen.classList.remove('hidden');
+      iconClose.classList.add('hidden');
+    }
+
+    function openMenu() {
+      mobileMenu.classList.add('open');
+      iconOpen.classList.add('hidden');
+      iconClose.classList.remove('hidden');
+    }
+
+    // 汉堡按钮点击事件
+    menuBtn.addEventListener('click', (e) => {
+      e.stopPropagation(); 
+      const isOpen = mobileMenu.classList.contains('open');
+      if (isOpen) {
+        closeMenu();
+      } else {
+        openMenu();
+      }
+    });
+
+    // 【修复 Bug 1】阻止移动端菜单内部点击的冒泡，防止点击菜单空白处时菜单意外关闭
+    mobileMenu.addEventListener('click', (e) => {
+      e.stopPropagation();
+    });
+
+    // 点击页面其他地方关闭菜单
+    document.addEventListener('click', (e) => {
+      if (mobileMenu.classList.contains('open') && !mobileMenu.contains(e.target)) {
+        closeMenu();
+      }
+    });
+
+    // 点击移动菜单内的任一链接后自动关闭
+    if (mobileMenu) {
+      const mobileLinks = mobileMenu.querySelectorAll('a');
+      mobileLinks.forEach(link => {
+        link.addEventListener('click', () => {
+          closeMenu();
+        });
+      });
+    }
   </script>
 </body>
 </html>
