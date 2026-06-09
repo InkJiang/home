@@ -6,6 +6,7 @@
   <title>05：工具</title>
   <link href="./assets/images/favicon.ico" rel="icon">
   <script src="https://cdn.tailwindcss.com"></script>
+  <script src="./assets/js/main.js" defer></script>
   <script>
     tailwind.config = {
       theme: {
@@ -49,41 +50,13 @@
   </style>
 </head>
 
-<body class="bg-ink-50 font-sans min-h-screen">
+<body class="bg-ink-50 font-sans min-h-screen flex flex-col">
 
   <!-- 导航 -->
-  <header id="navbar" class="nav-glass fixed top-0 left-0 right-0 z-50 bg-ink-950/80">
-    <div class="max-w-6xl mx-auto px-6 h-16 flex items-center justify-between">
-      <!-- 桌面端导航链接：在移动端隐藏，md及以上显示 -->
-      <div class="hidden md:flex items-center gap-6">
-        <a href="./index.html" class="nav-link text-white/70 hover:text-white text-sm tracking-wider transition-colors duration-200">01：首页</a>
-        <a href="./works.html"   class="nav-link text-white/70 hover:text-white text-sm tracking-wider transition-colors duration-200">02：短文</a>
-        <a href="./about.html"   class="nav-link text-white/70 hover:text-white text-sm tracking-wider transition-colors duration-200">03：关于</a>
-        <a href="./contact.html" class="nav-link text-white/70 hover:text-white text-sm tracking-wider transition-colors duration-200">04：联系</a>
-        <a href="./tool.html"    class="text-white font-bold text-sm tracking-widest opacity-90 hover:opacity-100 transition-opacity">05：工具</a>
-      </div>
-
-      <!-- Mobile Hamburger (仅在移动端显示) -->
-      <button id="menu-btn" class="md:hidden text-white p-2" aria-label="菜单">
-        <svg id="icon-open"  class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"/></svg>
-        <svg id="icon-close" class="w-6 h-6 hidden" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/></svg>
-      </button>
-    </div>
-
-    <!-- 移动端下拉菜单 -->
-    <div id="mobile-menu" class="md:hidden border-t border-white/10">
-      <nav class="flex flex-col px-6 py-4 gap-4">
-        <a href="./index.html"   class="text-white/70 hover:text-white text-sm tracking-wider py-1 transition-colors">01：首页</a>
-        <a href="./works.html"   class="text-white/70 hover:text-white text-sm tracking-wider py-1 transition-colors">02：短文</a>
-        <a href="./about.html"   class="text-white/70 hover:text-white text-sm tracking-wider py-1 transition-colors">03：关于</a>
-        <a href="./contact.html" class="text-white/70 hover:text-white text-sm tracking-wider py-1 transition-colors">04：联系</a>
-        <a href="./tool.html"    class="text-white hover:text-white text-sm tracking-wider py-1 transition-colors">05：工具</a>
-      </nav>
-    </div>
-  </header>
+  <header id="navbar" class="nav-glass fixed top-0 left-0 right-0 z-50 bg-ink-950/80"></header>
 
   <!-- 主内容 -->
-  <main class="pt-28 pb-20">
+  <main class="pt-28 pb-20 flex-1">
     <div class="max-w-2xl mx-auto px-6">
 
       <!-- 标题 -->
@@ -196,64 +169,8 @@
 
     </div>
   </main>
-
+  <footer id="global-footer" class="bg-ink-950 border-t border-white/10 py-8"></footer>
   <script>
-    // 导航
-    const navbar = document.getElementById('navbar');
-    window.addEventListener('scroll', () => {
-      navbar.classList.toggle('scrolled', window.scrollY > 60);
-    });
-
-    const menuBtn = document.getElementById('menu-btn');
-    const mobileMenu = document.getElementById('mobile-menu');
-    const iconOpen = document.getElementById('icon-open');
-    const iconClose = document.getElementById('icon-close');
-
-    function closeMenu() {
-      mobileMenu.classList.remove('open');
-      iconOpen.classList.remove('hidden');
-      iconClose.classList.add('hidden');
-    }
-
-    function openMenu() {
-      mobileMenu.classList.add('open');
-      iconOpen.classList.add('hidden');
-      iconClose.classList.remove('hidden');
-    }
-
-    // 汉堡按钮点击事件
-    menuBtn.addEventListener('click', (e) => {
-      e.stopPropagation(); 
-      const isOpen = mobileMenu.classList.contains('open');
-      if (isOpen) {
-        closeMenu();
-      } else {
-        openMenu();
-      }
-    });
-
-    // 【修复 Bug 1】阻止移动端菜单内部点击的冒泡，防止点击菜单空白处时菜单意外关闭
-    mobileMenu.addEventListener('click', (e) => {
-      e.stopPropagation();
-    });
-
-    // 点击页面其他地方关闭菜单
-    document.addEventListener('click', (e) => {
-      if (mobileMenu.classList.contains('open') && !mobileMenu.contains(e.target)) {
-        closeMenu();
-      }
-    });
-
-    // 点击移动菜单内的任一链接后自动关闭
-    if (mobileMenu) {
-      const mobileLinks = mobileMenu.querySelectorAll('a');
-      mobileLinks.forEach(link => {
-        link.addEventListener('click', () => {
-          closeMenu();
-        });
-      });
-    }
-
     // 关闭下拉（点击外部）
     document.addEventListener('click', (e) => {
       document.querySelectorAll('.dropdown.open').forEach(dd => {
@@ -291,12 +208,42 @@
     // 计算
     document.getElementById('calc-btn').addEventListener('click', () => {
       const distance    = parseFloat(document.getElementById('distance').value) || 0;
-      const timeH       = parseInt(document.getElementById('time-h').value) || 0;
-      const timeM       = parseInt(document.getElementById('time-m').value) || 0;
-      const timeS       = parseInt(document.getElementById('time-s').value) || 0;
+      
+      // 1. 读取原始输入
+      let timeH       = parseInt(document.getElementById('time-h').value) || 0;
+      let timeM       = parseInt(document.getElementById('time-m').value) || 0;
+      let timeS       = parseInt(document.getElementById('time-s').value) || 0;
+      
+      let paceM       = parseInt(document.getElementById('pace-m').value) || 0;
+      let paceS       = parseInt(document.getElementById('pace-s').value) || 0;
+
+      // 2. 自动进位预处理（处理用户输入的 60）
+      if (timeS >= 60) {
+        timeM += Math.floor(timeS / 60);
+        timeS = timeS % 60;
+      }
+      if (timeM >= 60) {
+        timeH += Math.floor(timeM / 60);
+        timeM = timeM % 60;
+      }
+      if (paceS >= 60) {
+        paceM += Math.floor(paceS / 60);
+        paceS = paceS % 60;
+      }
+
+      // 将规范化后的用户输入回写到输入框
+      if (timeH > 0 || timeM > 0 || timeS > 0) {
+        document.getElementById('time-h').value = timeH || '';
+        document.getElementById('time-m').value = timeM || '';
+        document.getElementById('time-s').value = timeS || '';
+      }
+      if (paceM > 0 || paceS > 0) {
+        document.getElementById('pace-m').value = paceM || '';
+        document.getElementById('pace-s').value = paceS || '';
+      }
+
+      // 计算总秒数
       const totalTimeSec = timeH * 3600 + timeM * 60 + timeS;
-      const paceM       = parseInt(document.getElementById('pace-m').value) || 0;
-      const paceS       = parseInt(document.getElementById('pace-s').value) || 0;
       const totalPaceSec = paceM * 60 + paceS;
 
       let validCount = 0;
@@ -307,23 +254,36 @@
       if (validCount < 2) {
         const tip = document.getElementById('tip-msg');
         tip.classList.remove('invisible');
-        tip.classList.add('visible'); // 恢复成弹性布局
+        tip.classList.add('visible'); 
         return;
       }
       const tip = document.getElementById('tip-msg');
       tip.classList.remove('visible');
       tip.classList.add('invisible');
 
+      // 3. 核心计算与输出（加入了防止四舍五入溢出 60 的安全机制）
       if (distance > 0 && totalTimeSec > 0) {
-        const s = totalTimeSec / distance;
-        document.getElementById('pace-m').value = Math.floor(s / 60);
-        document.getElementById('pace-s').value = Math.round(s % 60);
+        // 计算配速
+        const totalPaceSecCalc = Math.round(totalTimeSec / distance); // 先整体四舍五入取整秒
+        const outPaceM = Math.floor(totalPaceSecCalc / 60);
+        const outPaceS = totalPaceSecCalc % 60;
+
+        document.getElementById('pace-m').value = outPaceM;
+        document.getElementById('pace-s').value = outPaceS;
+
       } else if (distance > 0 && totalPaceSec > 0) {
-        const s = distance * totalPaceSec;
-        document.getElementById('time-h').value = Math.floor(s / 3600);
-        document.getElementById('time-m').value = Math.floor((s % 3600) / 60);
-        document.getElementById('time-s').value = Math.round(s % 60);
+        // 计算时间
+        const totalTimeSecCalc = Math.round(distance * totalPaceSec); // 先整体四舍五入取整秒
+        const outTimeH = Math.floor(totalTimeSecCalc / 3600);
+        const outTimeM = Math.floor((totalTimeSecCalc % 3600) / 60);
+        const outTimeS = totalTimeSecCalc % 60;
+
+        document.getElementById('time-h').value = outTimeH || '';
+        document.getElementById('time-m').value = outTimeM || '';
+        document.getElementById('time-s').value = outTimeS || '';
+
       } else if (totalTimeSec > 0 && totalPaceSec > 0) {
+        // 计算距离
         document.getElementById('distance').value = (totalTimeSec / totalPaceSec).toFixed(3);
       }
     });
